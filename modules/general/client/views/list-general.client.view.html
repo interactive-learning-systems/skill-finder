@@ -1,0 +1,21 @@
+<section>
+  <div class="page-header">
+    <h1>Generals</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="general in vm.generals" ui-sref="generals.view({ generalId: general._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="general.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="general.user" ng-bind="general.user.displayName"></span>
+        <span ng-if="!general.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="general.title"></h4>
+      <p class="list-group-item-text" ng-bind="general.content"></p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.generals.$resolved && !vm.generals.length">
+    No generals yet, why don't you <a ui-sref="generals.create">create one</a>?
+  </div>
+</section>

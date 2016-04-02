@@ -83,20 +83,25 @@
       // Validate that the menu exists
       service.validateMenuExistance(menuId);
 
+      var smi = service.menus[menuId].items;
       // Search for menu item
-      for (var itemIndex in service.menus[menuId].items) {
-        var currentItem = service.menus[menuId].items[itemIndex];
-        if (currentItem.state === parentItemState) {
-          // Push new submenu item
-          pushMenu(currentItem, options);
-          break;
-        } else {
-          for (var subitemIndex in currentItem.items) {
-            var currentSubitem = currentItem.items[subitemIndex];
-            if (currentSubitem.state === parentItemState) {
-              // Push new sub-submenu item
-              pushMenu(currentSubitem, options);
-              break;
+      for (var itemIndex in smi) {
+        if (smi.hasOwnProperty(itemIndex)) {
+          var currentItem = service.menus[menuId].items[itemIndex];
+          if (currentItem.state === parentItemState) {
+            // Push new submenu item
+            pushMenu(currentItem, options);
+            break;
+          } else {
+            for (var subitemIndex in currentItem.items) {
+              if (currentItem.items.hasOwnProperty(subitemIndex)) {
+                var currentSubitem = currentItem.items[subitemIndex];
+                if (currentSubitem.state === parentItemState) {
+                  // Push new sub-submenu item
+                  pushMenu(currentSubitem, options);
+                  break;
+                }
+              }
             }
           }
         }
