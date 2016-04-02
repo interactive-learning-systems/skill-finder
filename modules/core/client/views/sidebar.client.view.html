@@ -1,7 +1,7 @@
 
-<section class="sidebar"  uib-collapse="isSidebarColl">
+<section class="sidebar"  uib-collapse="isSidebarColl"  ng-controller="HeaderController as vm">
 
-  <div class="user-panel">
+  <div class="user-panel" ng-show="vm.authentication.user">
     <div class="pull-left image">
       <img src="img/user/avatar5.png" class="img-circle" alt="User Image"></img>
     </div>
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <ul class="sidebar-menu">
+  <ul class="sidebar-menu" ng-show="vm.authentication.user">
 
     <li class="treeview">
       <a href="#" type="button" ng-click="isHireCollapsed = !isHireCollapsed">
