@@ -70,5 +70,32 @@
       roles: ['user']
     });
 
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'hires', {
+      title: 'Checks',
+      state: 'hires.checks',
+      class: 'fa-circle-o',
+      position: 3,
+      roles: ['user']
+    });
+
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'hires', {
+      title: 'Tests',
+      state: 'hires.tests',
+      class: 'fa-circle-o',
+      position: 4,
+      roles: ['user']
+    });
+
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'hires', {
+      title: 'Candidate Report',
+      state: 'hires.candidateReport',
+      class: 'fa-circle-o',
+      position: 5,
+      roles: ['user']
+    });
+
   }
 }());
