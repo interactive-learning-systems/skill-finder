@@ -1,0 +1,28 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.reports._id ? 'Edit Reports' : 'New Reports'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.reportsForm" class="form-horizontal" ng-submit="vm.save(vm.form.reportsForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="title">Title</label>
+          <input name="title" type="text" ng-model="vm.reports.title" id="title" class="form-control" placeholder="Title" required>
+          <div ng-messages="vm.form.reportsForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Reports title is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="content">Content</label>
+          <textarea name="content" data-ng-model="vm.reports.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.reports._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

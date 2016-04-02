@@ -1,0 +1,91 @@
+
+<section class="sidebar"  uib-collapse="isSidebarColl">
+
+  <div class="user-panel">
+    <div class="pull-left image">
+      <img src="img/user/avatar5.png" class="img-circle" alt="User Image"></img>
+    </div>
+    <div class="pull-left info">
+      <p>User Name</p>
+    </div>
+  </div>
+
+  <ul class="sidebar-menu">
+
+    <li class="treeview">
+      <a href="#" type="button" ng-click="isHireCollapsed = !isHireCollapsed">
+        <i class="fa fa-user"></i>
+        <span>Hire</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu" uib-collapse="isHireCollapsed" >
+
+        <li>
+          <a href="#" type="button" ng-click="isInterviewsCollapsed = !isInterviewsCollapsed">
+            <i class="fa fa-circle-o"></i> Interviews <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu" uib-collapse="isInterviewsCollapsed" >
+            <li>
+              <a href="checks_attitude.html"><i class="fa fa-circle-o"></i> Interview 1</a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-circle-o"></i> Interview 2 </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" type="button" ng-click="isLocationsCollapsed = !isLocationsCollapsed">
+            <i class="fa fa-circle-o"></i> Locations <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu" uib-collapse="isLocationsCollapsed" >
+            <li>
+              <a href="checks_attitude.html"><i class="fa fa-circle-o"></i> Previous</a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-circle-o"></i>Current</a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-circle-o active"></i> Checks </a></li>
+        <li><a href="#"><i class="fa fa-circle-o"></i> Tests </a></li>
+        <li><a href="cand_report.html"><i class="fa fa-circle-o"></i> Candidate Report </a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="#"><i class="fa fa-hand-o-right"></i> <span>Orientation & Training</span></a>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-dollar"></i> <span>Pay & Benefits</span></a>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-rocket"></i> <span>Performance</span></a>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-sign-out"></i> <span>Exit</span></a>
+    </li>
+
+    <li>
+      <a href="#" type="button" ng-click="isReportsCollapsed = !isReportsCollapsed">
+        <i class="fa fa-line-chart"></i>
+        <span>Reports</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu" uib-collapse="isReportsCollapsed" >
+        <li>
+          <a href="#"><i class="fa fa-circle-o"></i> Candidate Comparisons </a>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-circle-o"></i> Candidate Summary </a>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-circle-o"></i> Interviewee Comparison </a>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-circle-o"></i> Hiring History</a>
+        </li>
+      </ul>
+    </li>
+
+  </ul>
+</section>

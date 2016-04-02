@@ -5,8 +5,17 @@ module.exports = {
     lib: {
       css: [
         // bower:css
-        'public/lib/bootstrap/dist/css/bootstrap.min.css',
-        'public/lib/bootstrap/dist/css/bootstrap-theme.min.css'
+        'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+        'public/lib/rdash-ui/dist/css/rdash.min.css',
+        'public/lib/bootstrap/dist/css/bootstrap.css'
+        // endbower
+      ],
+      fonts: [
+        // bower:css
+        'public/lib/rdash-ui/dist/fonts/montserrat-regular-webfont.eot',
+        'public/lib/rdash-ui/dist/fonts/montserrat-regular-webfont.svg',
+        'public/lib/rdash-ui/dist/fonts/montserrat-regular-webfont.ttf',
+        'public/lib/rdash-ui/dist/fonts/montserrat-regular-webfont.woff'
         // endbower
       ],
       js: [

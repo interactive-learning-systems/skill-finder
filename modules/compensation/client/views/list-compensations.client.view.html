@@ -1,0 +1,21 @@
+<section>
+  <div class="page-header">
+    <h1>Compensations</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="compensation in vm.compensations" ui-sref="compensations.view({ compensationId: compensation._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="compensation.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="compensation.user" ng-bind="compensation.user.displayName"></span>
+        <span ng-if="!compensation.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="compensation.title"></h4>
+      <p class="list-group-item-text" ng-bind="compensation.content"></p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.compensations.$resolved && !vm.compensations.length">
+    No compensations yet, why don't you <a ui-sref="compensations.create">create one</a>?
+  </div>
+</section>

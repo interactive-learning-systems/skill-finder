@@ -5,12 +5,25 @@ module.exports = {
     lib: {
       css: [
         // bower:css
+        'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/bootstrap/dist/css/bootstrap.css',
-        'public/lib/bootstrap/dist/css/bootstrap-theme.css'
+        'public/lib/rdash-ui/dist/css/rdash.min.css',
+        'public/lib/font-awesome/css/font-awesome.min.css',
+        // endbower
+        'public/lib/skins/css/_all-skins.css',
+        'public/lib/school/dist/school.css'
+      ],
+      fonts: [
+        // bower:css
+        'public/lib/rdash-ui/dist/fonts/montserrat-regular-webfont.eot',
+        'public/lib/rdash-ui/dist/fonts/montserrat-regular-webfont.svg',
+        'public/lib/rdash-ui/dist/fonts/montserrat-regular-webfont.ttf',
+        'public/lib/rdash-ui/dist/fonts/montserrat-regular-webfont.woff'
         // endbower
       ],
       js: [
         // bower:js
+        'public/lib/jquery/dist/jquery.min.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-animate/angular-animate.js',
@@ -18,8 +31,9 @@ module.exports = {
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/angular-file-upload/dist/angular-file-upload.js',
-        'public/lib/owasp-password-strength-test/owasp-password-strength-test.js'
+        'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         // endbower
+        'public/lib/bootstrap-treeview/dist/bootstrap-treeview.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

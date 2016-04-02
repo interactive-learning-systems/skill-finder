@@ -1,0 +1,21 @@
+<section>
+  <div class="page-header">
+    <h1>Trainings</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="training in vm.trainings" ui-sref="trainings.view({ trainingId: training._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="training.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="training.user" ng-bind="training.user.displayName"></span>
+        <span ng-if="!training.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="training.title"></h4>
+      <p class="list-group-item-text" ng-bind="training.content"></p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.trainings.$resolved && !vm.trainings.length">
+    No trainings yet, why don't you <a ui-sref="trainings.create">create one</a>?
+  </div>
+</section>
