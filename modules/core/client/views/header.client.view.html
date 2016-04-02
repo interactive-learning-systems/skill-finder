@@ -1,12 +1,45 @@
-<a href="#" type="button" data-toggle="offcanvas" ng-click="$parent.sidebarCollapse = !$parent.sidebarCollapse" class="logo">
-  <span class="logo-mini"><b>SFQ</b></span>
-  <span class="logo-lg"><b>SkillFinderQ</b></span>
-</a>
-
-<nav class="navbar navbar-static-top" role="navigation">
-  <a href="#" class="sidebar-toggle" data-toggle="offcanvas" type="button" ng-click="$parent.sidebarCollapse = !$parent.sidebarCollapse">
+<div class="navbar-header">
+  <a href="#" type="button" data-toggle="offcanvas" ng-click="$parent.sidebarCollapse = !$parent.sidebarCollapse" class="logo">
+    <span class="logo-mini"><b>SFQ</b></span>
+    <span class="logo-lg"><b>SkillFinderQ</b></span>
+  </a>
+</div>
+<nav class="navbar navbar-static-top" role="navigation" ng-controller="HeaderController as vm">
+  <a href="#" class="sidebar-toggle" data-toggle="offcanvas" type="button" ng-click="$parent.$parent.sidebarCollapse = !$parent.sidebarCollapse">
     <span class="sr-only">Toggle navigation</span>
   </a>
+
+  <div class="navbar-custom-menu">
+    <ul class="nav navbar-nav navbar-right" ng-hide="vm.authentication.user">
+      <li ui-sref-active="active">
+        <a ui-sref="authentication.signup">Sign Up</a>
+      </li>
+      <li class="divider-vertical"></li>
+      <li ui-sref-active="active">
+        <a ui-sref="authentication.signin">Sign In</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
+      <li class="dropdown" uib-dropdown>
+        <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
+          <img ng-src="{{vm.authentication.user.profileImageURL}}" alt="{{vm.authentication.user.displayName}}" class="header-profile-image" />
+          <span ng-bind="vm.authentication.user.displayName"></span> <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li ui-sref-active="active" ng-repeat="item in vm.accountMenu.items">
+            <a ui-sref="{{item.state}}" ng-bind="item.title"></a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="/api/auth/signout" target="_self">Signout</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+
+  <!--
   <div class="navbar-custom-menu">
     <ul class="nav navbar-nav">
       <li class="dropdown user user-menu">
@@ -30,5 +63,5 @@
       </li>
     </ul>
   </div>
+-->
 </nav>
-</script>

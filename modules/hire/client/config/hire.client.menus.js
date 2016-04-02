@@ -8,23 +8,67 @@
   menuConfig.$inject = ['menuService'];
 
   function menuConfig(menuService) {
+
     menuService.addMenuItem('topbar', {
       title: 'Hires',
       state: 'hires',
+      class: 'fa-user',
       type: 'dropdown',
-      roles: ['*']
-    });
-
-    menuService.addSubMenuItem('topbar', 'hires', {
-      title: 'List Hires',
-      state: 'hires.list'
+      position: 1,
+      roles: ['user']
     });
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'hires', {
-      title: 'Create Hire',
-      state: 'hires.create',
+      title: 'Interviews',
+      state: 'hires.interviews',
+      class: 'fa-circle-o',
+      type: 'dropdown',
+      position: 1,
       roles: ['user']
     });
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'hires.interviews', {
+      title: 'Interview 1',
+      state: 'hires.interviews',
+      class: 'fa-circle-o',
+      position: 1,
+      roles: ['user']
+    });
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'hires.interviews', {
+      title: 'Interview 2',
+      state: 'hires.interviews',
+      class: 'fa-circle-o',
+      position: 2,
+      roles: ['user']
+    });
+
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'hires', {
+      title: 'Locations',
+      state: 'hires.locations',
+      class: 'fa-circle-o',
+      type: 'dropdown',
+      position: 2,
+      roles: ['user']
+    });
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'hires.locations', {
+      title: 'Previous',
+      state: 'hires.locations',
+      class: 'fa-circle-o',
+      position: 1,
+      roles: ['user']
+    });
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'hires.locations', {
+      title: 'Current',
+      state: 'hires.locations',
+      class: 'fa-circle-o',
+      position: 2,
+      roles: ['user']
+    });
+
   }
 }());

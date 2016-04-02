@@ -1,17 +1,61 @@
 
-<section class="sidebar"  uib-collapse="isSidebarColl"  ng-controller="HeaderController as vm">
+<section class="sidebar sidebar-menu"  uib-collapse="isSidebarColl"  ng-controller="HeaderController as vm">
 
   <div class="user-panel" ng-show="vm.authentication.user">
     <div class="pull-left image">
-      <img src="img/user/avatar5.png" class="img-circle" alt="User Image"></img>
+      <img ng-src="{{vm.authentication.user.profileImageURL}}" alt="{{vm.authentication.user.displayName}}" class="header-profile-image" />
     </div>
     <div class="pull-left info">
-      <p>User Name</p>
+      <span ng-bind="vm.authentication.user.displayName"></span>
     </div>
   </div>
 
-  <ul class="sidebar-menu" ng-show="vm.authentication.user">
+  <ul class="treeview-menu" ng-show="vm.authentication.user">
+    <li class="treeview ">
 
+      <li ng-repeat="item in vm.menu.items | orderBy: 'position'" ng-if="item.shouldRender(vm.authentication.user);" ng-switch="item.type" ng-class="{ dropdown: item.type === 'dropdown' }" ui-sref-active="active" class="{{item.class}}" uib-dropdown="item.type === 'dropdown'">
+        <!-- If dropdown, render with dropdown styling -->
+        <a ng-switch-when="dropdown" class="dropdown-toggle" uib-dropdown-toggle role="button" ng-click="vm.isExpanded[item.state] = !vm.isExpanded[item.state]">
+          <i class="fa {{::item.class}}" ></i>{{hire.isCollapsed}}{{::item.title}}&nbsp;<span class="caret pull-right"></span>
+        </a>
+        <!-- If dropdown, render submenu -->
+        <ul ng-switch-when="dropdown" class="treeview-menu" uib-collapse="!vm.isExpanded[item.state]">
+          <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-switch="subitem.type" nng-if="subitem.shouldRender(vm.authentication.user);">
+
+            <!-- If submenu is a dropdown, render with dropdown styling -->
+            <a ng-switch-when="dropdown" href="#" type="button" ng-click="vm.isExpanded[subitem.state] = !vm.isExpanded[subitem.state]">
+              <i class="fa {{::subitem.class}}"></i>{{::subitem.title}}<span class="caret pull-right"></span>
+            </a>
+
+            <!-- If submenu is dropdown, render submenu -->
+            <ul ng-switch-when="dropdown" class="treeview-menu" uib-collapse="!vm.isExpanded[subitem.state]">
+              <li ng-repeat="subsubitem in subitem.items | orderBy: 'position'" ng-switch="subsubitem.type" nng-if="subsubitem.shouldRender(vm.authentication.user);">
+
+                <!-- Render leaf -->
+                <a ng-switch-default href="#" type="button">
+                  <i class="fa {{subsubitem.class}}"></i>{{subsubitem.title}}
+                </a>
+
+              </li>
+            </ul>
+
+            <!-- Else, submenu is not a dropdown -->
+            <a ng-switch-default href="#" type="button">
+              <i class="fa {{subitem.class}}"></i>{{subitem.title}}
+            </a>
+
+          </li>
+        </ul>
+        <!-- Else, menu is not a dropdown -->
+        <a ng-switch-default href="#" type="button">
+          <i class="fa {{item.class}}"></i>{{item.title}}
+        </a>
+      </li>
+
+    </li>
+
+<!---------------------------------------------------------------------->
+<!--
     <li class="treeview">
       <a href="#" type="button" ng-click="isHireCollapsed = !isHireCollapsed">
         <i class="fa fa-user"></i>
@@ -86,6 +130,7 @@
         </li>
       </ul>
     </li>
-
+  -->
+    <!---------------------------------------------------------------------->
   </ul>
 </section>

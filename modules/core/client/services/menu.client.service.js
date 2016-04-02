@@ -40,6 +40,8 @@
     }
 
     // Add menu item object
+    // menuId  : id of the top level menu
+    // optoins : options of new menu item
     function addMenuItem(menuId, options) {
       options = options || {};
 
@@ -72,6 +74,9 @@
     }
 
     // Add submenu item object
+    // menuId  : id of the top level menu
+    // parentItemState  : id of the parent
+    // optoins : options of new menu item
     function addSubMenuItem(menuId, parentItemState, options) {
       options = options || {};
 
@@ -80,20 +85,38 @@
 
       // Search for menu item
       for (var itemIndex in service.menus[menuId].items) {
-        if (service.menus[menuId].items[itemIndex].state === parentItemState) {
+        var currentItem = service.menus[menuId].items[itemIndex];
+        if (currentItem.state === parentItemState) {
           // Push new submenu item
-          service.menus[menuId].items[itemIndex].items.push({
-            title: options.title || '',
-            state: options.state || '',
-            roles: ((options.roles === null || typeof options.roles === 'undefined') ? service.menus[menuId].items[itemIndex].roles : options.roles),
-            position: options.position || 0,
-            shouldRender: shouldRender
-          });
+          pushMenu(currentItem, options);
+          break;
+        } else {
+          for (var subitemIndex in currentItem.items) {
+            var currentSubitem = currentItem.items[subitemIndex];
+            if (currentSubitem.state === parentItemState) {
+              // Push new sub-submenu item
+              pushMenu(currentSubitem, options);
+              break;
+            }
+          }
         }
       }
 
       // Return the menu object
       return service.menus[menuId];
+    }
+
+    function pushMenu(pushPoint, options) {
+      pushPoint.items.push({
+        title: options.title || '',
+        state: options.state || '',
+        class: options.class || '',
+        type: options.type || '',
+        roles: ((options.roles === null || typeof options.roles === 'undefined') ? pushPoint.roles : options.roles),
+        position: options.position || 0,
+        items: [],
+        shouldRender: shouldRender
+      });
     }
 
     // Get the menu object by menu id

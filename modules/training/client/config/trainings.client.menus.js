@@ -9,22 +9,11 @@
 
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
-      title: 'Trainings',
+      title: 'Orientation & Training',
       state: 'trainings',
-      type: 'dropdown',
+      class: 'fa-hand-o-right',
+      position: 2,
       roles: ['*']
-    });
-
-    menuService.addSubMenuItem('topbar', 'trainings', {
-      title: 'List Trainings',
-      state: 'trainings.list'
-    });
-
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'trainings', {
-      title: 'Create Training',
-      state: 'trainings.create',
-      roles: ['user']
     });
   }
 }());

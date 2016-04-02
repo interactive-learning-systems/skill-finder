@@ -9,22 +9,11 @@
 
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
-      title: 'Performances',
+      title: 'Performance',
       state: 'performances',
-      type: 'dropdown',
+      class: 'fa-rocket',
+      position: 4,
       roles: ['*']
-    });
-
-    menuService.addSubMenuItem('topbar', 'performances', {
-      title: 'List Performances',
-      state: 'performances.list'
-    });
-
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'performances', {
-      title: 'Create Performance',
-      state: 'performances.create',
-      roles: ['user']
     });
   }
 }());

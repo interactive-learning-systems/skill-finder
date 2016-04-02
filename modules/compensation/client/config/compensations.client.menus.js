@@ -9,22 +9,11 @@
 
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
-      title: 'Compensations',
+      title: 'Pay & Benefits',
       state: 'compensations',
-      type: 'dropdown',
+      class: 'fa-dollar',
+      position: 3,
       roles: ['*']
-    });
-
-    menuService.addSubMenuItem('topbar', 'compensations', {
-      title: 'List Compensations',
-      state: 'compensations.list'
-    });
-
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'compensations', {
-      title: 'Create Compensation',
-      state: 'compensations.create',
-      roles: ['user']
     });
   }
 }());
