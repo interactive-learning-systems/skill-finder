@@ -1,6 +1,6 @@
 {
-  "name": "meanjs",
-  "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
+  "name": "InteractiveLearningSystem",
+  "description": "Suite of Learning Applications.",
   "version": "0.5.0-beta",
   "meanjs-version": "0.5.0-beta",
   "private": false,
