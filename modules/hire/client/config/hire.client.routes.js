@@ -9,6 +9,15 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('hires.interview.1', {
+        url: '',
+        templateUrl: 'modules/hires/client/views/form-hire.client.view.html',
+        controller: 'HiresListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Interview 1'
+        }
+      })
       .state('hires', {
         abstract: true,
         url: '/hires',

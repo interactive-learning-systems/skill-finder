@@ -30,7 +30,7 @@
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'hires.interviews', {
       title: 'Interview 1',
-      state: 'hires.interviews',
+      state: 'hires.interview.1',
       class: 'fa-circle-o',
       position: 1,
       roles: ['user']
@@ -38,7 +38,7 @@
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'hires.interviews', {
       title: 'Interview 2',
-      state: 'hires.interviews',
+      state: 'hires.interview.2',
       class: 'fa-circle-o',
       position: 2,
       roles: ['user']
@@ -56,7 +56,7 @@
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'hires.locations', {
       title: 'Previous',
-      state: 'hires.locations',
+      state: 'hires.location.1',
       class: 'fa-circle-o',
       position: 1,
       roles: ['user']
@@ -64,7 +64,7 @@
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'hires.locations', {
       title: 'Current',
-      state: 'hires.locations',
+      state: 'hires.location.2',
       class: 'fa-circle-o',
       position: 2,
       roles: ['user']
