@@ -7,9 +7,9 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Hire Schema
+ * Article Schema
  */
-var HireSchema = new Schema({
+var ArticleSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
@@ -31,4 +31,4 @@ var HireSchema = new Schema({
   }
 });
 
-mongoose.model('Hire', HireSchema);
+mongoose.model('Article', ArticleSchema);

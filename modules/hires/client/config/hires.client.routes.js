@@ -9,9 +9,9 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('hires.interview.1', {
-        url: '',
-        templateUrl: 'modules/hires/client/views/form-hire.client.view.html',
+      .state('hire.interview.1', {
+        url: '/interview1',
+        templateUrl: 'modules/hire/client/views/form-hire.client.view.html',
         controller: 'HiresListController',
         controllerAs: 'vm',
         data: {
@@ -32,17 +32,30 @@
           pageTitle: 'Hires List'
         }
       })
-      .state('hires.create', {
-        url: '/create',
+      .state('hires.interview_1_knowledge', {
+        url: '/interview_1_knowledge',
         templateUrl: 'modules/hires/client/views/form-hire.client.view.html',
-        controller: 'HiresController',
+        controller: 'HiresListController',
         controllerAs: 'vm',
         resolve: {
           hireResolve: newHire
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Hires Create'
+          pageTitle: 'Hire: Interview 1 - Knowledge'
+        }
+      })
+      .state('hires.interview_2_knowledge', {
+        url: '/interview_2_knowledge',
+        templateUrl: 'modules/hires/client/views/form-hire.client.view.html',
+        controller: 'HiresListController',
+        controllerAs: 'vm',
+        resolve: {
+          hireResolve: newHire
+        },
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'Hire: Interview 2 - Knowledge'
         }
       })
       .state('hires.edit', {

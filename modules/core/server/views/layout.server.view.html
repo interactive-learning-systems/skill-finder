@@ -35,6 +35,7 @@
   {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
 
 </head>
+
 <body class="ng-cloak skin-blue sidebar-mini" ng-class="{'sidebar-collapse': sidebarCollapse}">
   <header ng-include="'/modules/core/client/views/header.client.view.html'" class="main-header navbar navbar-fixed-top navbar-inverse relative-header"></header>
   <aside ng-include="'/modules/core/client/views/sidebar.client.view.html'" class="main-sidebar"></aside>

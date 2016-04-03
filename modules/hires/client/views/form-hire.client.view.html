@@ -1,0 +1,67 @@
+
+<section class="content-header">
+  <div class="col-md-12">
+    <div class="box box-primary">
+      <div id="topic" class="box-header with-border"><h3 class="box-title"><b>Interview1</b> - Knowledge</h3></div>
+      <div class="box-body ">
+        <div class="progress-group col-md-4">
+          <span class="progress-text">Interviews</span>
+          <span class="progress-number">{{ (filtered | completed).length }} / {{ filtered.length }}</span>
+          <uib-progressbar max="filtered.length" value="(filtered | completed).length">
+            <span style="color:white; white-space:nowrap;">{{ (filtered | completed).length }} / {{ filtered.length }}</span>
+          </uib-progressbar>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="col-md-12">
+    <!--
+    <form name="vm.form.hireForm" class="form-horizontal" ng-submit="vm.save(vm.form.hireForm.$valid)" novalidate>
+    -->
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Questions for the candidate</h3>
+
+          <div class="box-tools">
+
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table id="attitude-table" class="table table-fixed table-striped">
+            <tbody>
+              <tr id="attitude-header">
+                <th class="text-center"></th><th class="text-center">ID</th> <th>Question</th> <th class="text-center">Rating</th>
+              </tr>
+              <tr ng-repeat="question in filtered = (vm.questions | section:{section1:'Hires', section2:'Interview 1', section3:'Knowledge'})">
+                <td align="center"></td>
+                <td align="center">1</td>
+                <td><p class="list-group-item-text" ng-bind="question.question"></p></td>
+                <td align="center">
+                  <span>
+                    <input ng-show="question.rating.ratingType==='trueFalse'" type="checkbox" ng-model="question.rating.trueFalse" ng-checked="question.rating.trueFalse" ng-indeterminate="true">
+                    <uib-rating ng-show="question.rating.ratingType==='rating4'" ng-model="question.rating.value" max="4" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" enable-reset="true" aria-labelledby="default-rating"></uib-rating>
+                    <uib-rating ng-show="question.rating.ratingType==='rating5'" ng-model="question.rating.value" max="5" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" enable-reset="true" aria-labelledby="default-rating"></uib-rating>
+                </span>
+                </td>
+              </tr>
+              <tr>
+                <td align="center"><button id="add-question" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Question"><i class="fa fa-plus"></i></button></td>
+                <td></td>
+                <td><input type="text" name="question" data-ng-model="vm.question.question" id="content" class="form-control" cols="30" rows="1" placeholder="Question"></textarea></td>
+                <td></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--
+    </form>
+  -->
+  </div>
+</section>
