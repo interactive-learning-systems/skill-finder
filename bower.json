@@ -27,8 +27,5 @@
         "less/bootstrap.less"
       ]
     },
-    "jquery": {
-      "main": []
-    }
   }
 }
