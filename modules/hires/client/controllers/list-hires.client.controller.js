@@ -44,6 +44,26 @@
   function HiresListController($scope, HiresService) {
     var vm = this;
 
+    vm.addRow = function(questionText, ratingType) {
+
+      vm.questions.push(
+        {
+          created: Date.now,
+          user: 1,
+          Interviewee: 2,
+          question: questionText,
+          section1: 'Hires',
+          section2: 'Interview 1',
+          section3: 'Knowledge',
+          rating: {
+            rated: false,
+            ratingType: ratingType,
+            trueFalse: null
+          }
+        }
+      );
+    };
+
     vm.questions = [{
       created: Date.now,
       user: 1,
@@ -55,7 +75,8 @@
       rating: {
         rated: false,
         ratingType: 'trueFalse',
-        trueFalse: null
+        trueFalse: null,
+        value: 0
       }
     },
     {
@@ -101,13 +122,6 @@
       }
     }
   ];
-
-    vm.hires = {
-      interview_1: {
-        answered: vm.questions.length,
-        total: vm.questions.length
-      }
-    };
 
   }
 }());

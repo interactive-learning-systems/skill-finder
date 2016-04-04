@@ -1,6 +1,5 @@
 (function () {
   'use strict';
-  console.log("ASDF");
 
   angular.module('core')
     .directive('pageTitle', pageTitle);

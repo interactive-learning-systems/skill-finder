@@ -18,9 +18,6 @@
 
 <section class="content">
   <div class="col-md-12">
-    <!--
-    <form name="vm.form.hireForm" class="form-horizontal" ng-submit="vm.save(vm.form.hireForm.$valid)" novalidate>
-    -->
       <div class="box">
         <div class="box-header">
           <h3 class="box-title">Questions for the candidate</h3>
@@ -29,7 +26,6 @@
 
           </div>
         </div>
-        <!-- /.box-header -->
         <div class="box-body table-responsive no-padding">
           <table id="attitude-table" class="table table-fixed table-striped">
             <tbody>
@@ -49,19 +45,21 @@
                 </td>
               </tr>
               <tr>
-                <td align="center"><button id="add-question" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Question"><i class="fa fa-plus"></i></button></td>
+                <td align="center"><button ng-disabled="!vm.newQuestion" ng-click="vm.addRow(vm.newQuestion, vm.newRatingType)" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Question"><i class="fa fa-plus"></i></button></td>
                 <td></td>
-                <td><input type="text" name="question" data-ng-model="vm.question.question" id="content" class="form-control" cols="30" rows="1" placeholder="Question"></textarea></td>
-                <td></td>
+                <td><input type="text" name="question" data-ng-model="vm.newQuestion" class="form-control" cols="30" rows="1" placeholder="Question"></textarea></td>
+                <td align="center">
+                  <select ng-model="vm.newRatingType" ng-init="vm.newRatingType='trueFalse'" >
+                    <option value="trueFalse">True / False</option>
+                    <option value="rating4">4 Star</option>
+                    <option value="rating5">5 Star</option>
+                  </select>
+                </td>
               </tr>
-
             </tbody>
           </table>
         </div>
       </div>
     </div>
-    <!--
-    </form>
-  -->
   </div>
 </section>
