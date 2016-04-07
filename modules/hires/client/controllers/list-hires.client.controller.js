@@ -77,10 +77,10 @@
           user: 1,
           Interviewee: 2,
           question: questionText,
-          module: 'Hires',
-          unit: 'Interviews',
-          chapter: 'Interview 1',
-          section: 'Knowledge',
+          module: vm.currentSection.module,
+          unit: vm.currentSection.unit,
+          chapter: vm.currentSection.chapter,
+          section: vm.currentSection.section,
           rating: {
             ratingType: ratingType,
             trueFalse: null
@@ -97,10 +97,143 @@
       }
     }
 
-    vm.currentModule = {module:'Hires'};
-    vm.currentUnit = {module:'Hires', unit:'Interviews'};
-    vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Knowledge'};
+    vm.next = function() {
+      vm.previousSection = vm.currentSection;
+      vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Skills'};
+      vm.nextSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Attitude'};
+    }
 
+    vm.back = function() {
+      vm.nextSection = vm.currentSection;
+      vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Knowledge'};
+      vm.previousSection = null;
+    }
+
+    vm.getUnitsForModule = function(module) {
+      console.log(vm.modules[0].value);
+      return vm.modules[0].value;
+    }
+
+    vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Knowledge'};
+    vm.nextSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Knowledge'};
+    vm.previousSection = null;
+
+    vm.modules = [
+      {
+        module: "Hire",
+        value: [
+          {
+            unit: 'Interviews',
+            value: [
+              {
+                chapter:'Interview 1',
+                value: [
+                  {section: 'Knowledge'},
+                  {section: 'Skills'},
+                  {section: 'Attitude'},
+                ]
+              },
+              {
+                chapter:'Interview 2',
+                value: [
+                  {section: 'Knowledge'},
+                  {section: 'Skills'},
+                  {section: 'Attitude'},
+                ]
+              }
+            ]
+          },
+          {
+            unit: 'Locations',
+            value: [
+              {
+                chapter:'Previous',
+                value: [
+                  {section: 'Knowledge'},
+                  {section: 'Skills'},
+                  {section: 'Attitude'},
+                ]
+              },
+              {
+                chapter:'Current',
+                value: [
+                  {section: 'Knowledge'},
+                  {section: 'Skills'},
+                  {section: 'Attitude'},
+                ]
+              }
+            ]
+          },
+          {
+            unit: 'Checks',
+            value: [
+              {
+                chapter:'Checks',
+                value: [
+                  {section: 'Knowledge'},
+                  {section: 'Skills'},
+                  {section: 'Attitude'},
+                ]
+              },
+            ]
+          },
+          {
+            unit: 'Tests',
+            value: [
+              {
+                chapter:'Tests',
+                value: [
+                  {section: 'Knowledge'},
+                  {section: 'Skills'},
+                  {section: 'Attitude'},
+                ]
+              },
+            ]
+          },
+        ]
+      }
+    ];
+
+/*
+
+vm.modules = [
+  {
+    module: "Hire",
+    value: [
+      {
+        unit: 'Interviews',
+        value: [
+          { chapter:'Interview 1', section:'Knowledge' },
+          { chapter:'Interview 1', section:'Skills' },
+          { chapter:'Interview 1', section:'Attitude' },
+          { chapter:'Interview 2', section:'Knowledge' },
+          { chapter:'Interview 2', section:'Skills' },
+          { chapter:'Interview 2', section:'Attitude' }
+        ]
+      },
+      {
+        unit: 'Locations',
+        value: [
+          { chapter:'Location 1', section:'Knowledge' },
+          { chapter:'Location 2', section:'Knowledge' }
+        ]
+      },
+      {
+        unit: 'Checks',
+        value: [
+          { chapter:'Checks', section:'Knowledge' },
+          { chapter:'Checks', section:'Skills' },
+          { chapter:'Checks', section:'Attitude' }
+        ]
+      }
+    ]
+  }
+];
+
+*/
+
+
+/*
     vm.units = [
       {
         name: 'Interviews',
@@ -129,6 +262,7 @@
         ]
       }
     ];
+*/
 
     vm.questions = [{
       created: Date.now,

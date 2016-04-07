@@ -1,52 +1,14 @@
-<!--
-<section class="content-header">
-  <div class="col-md-12">
-    <div class="box box-primary">
-      <div id="topic" class="box-header with-border"><h3 class="box-title"><b>Interview1</b> - Knowledge</h3></div>
-      <div class="box-body ">
-        <div class="progress-group col-md-4">
-          <span class="progress-text">Interviews</span>
-          <span class="progress-number">{{ (filtered | completed).length }} / {{ filtered.length }}</span>
-          <uib-progressbar max="filtered.length" value="(filtered | completed).length">
-            <span style="color:white; white-space:nowrap;">{{ (filtered | completed).length }} / {{ filtered.length }}</span>
-          </uib-progressbar>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
--->
 
 <section class="content-header">
   <div class="col-md-12">
     <div class="box box-primary">
-      <div id="topic" class="box-header with-border"><h3 class="box-title"><b>{{vm.currentSection.unit}}</b> - {{vm.currentSection.section}}</h3></div>
       <div class="box-body" >
-        <div class="progress-group col-md-4" ng-repeat="unit in vm.units">
-          <span class="progress-text">{{unit.name}}</span>
-          <span class="progress-number"> {{ (unitQuestions | completed).length}} / {{(unitQuestions = (vm.questions | section: {module:'Hires', unit: unit.name} )).length}}</span>
+        <div class="progress-group col-md-3" ng-repeat="unit in vm.getUnitsForModule('Hires')">
+          <span class="progress-text">{{unit.unit}}</span>
+          <span class="progress-number"> {{ (unitQuestions | completed).length}} / {{(unitQuestions = (vm.questions | section: {module:'Hires', unit: unit.unit} )).length}}</span>
           <uib-progressbar max="unitQuestions.length" value="(unitQuestions | completed).length">
             <span style="color:white; white-space:nowrap;">{{ (unitQuestions | completed).length}}  / {{unitQuestions.length}}</span>
           </uib-progressbar>
-
-<!--
-          <div ng-repeat="item in resultValue=(vm.questions | section: {module:'Hires', unit:'Interview 1'})">
-          <span class="progress-text">{{unit.name}}</span> <span class="progress-number">1 / 20</span>
-          <uib-progressbar max="20" value="1">
-            <span style="color:white; white-space:nowrap;">1 / 20</span>
-          </uib-progressbar>
-
-
-        </div>
--->
-<!--
-          <tr ng-repeat="question in filtered = (vm.questions | section:{module:'Hires', unit:'Interview 1', section:'Knowledge'})">
-          <span class="progress-number">{{ (sectionQuestions | completed).length }} / (sectionQuestions = (vm.questions | section:subsection.value)).length }} </span>
-          <uib-progressbar max="sectionQuestions.length" value="(sectionQuestions | completed).length">
-            <span style="color:white; white-space:nowrap;">{{ (sectionQuestions | completed).length }} / {{ sectionQuestions.length }}</span>
-          </uib-progressbar>
--->
-
         </div>
       </div>
     </div>
@@ -57,8 +19,7 @@
   <div class="col-md-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Questions for the candidate</h3>
-
+          <div id="topic" class="box-title box-header with-border"><h3 class="box-title"><b>{{vm.currentSection.unit}}</b> - {{vm.currentSection.section}} Questions for the candidate</h3></div>
           <div class="box-tools"></div>
         </div>
         <div class="box-body table-responsive no-padding">
@@ -71,9 +32,8 @@
                 <td align="center"></td>
                 <td align="center">1</td>
                 <td>
-                  <p class="list-group-item-text" ng-bind="question.question">
-                    <a href="#" data-size="large" data-toggle="popover" data-trigger="hover" title="Information" data-content="question.hint" data-original-title="Information"><i class="fa fa-question-circle fa-lg"></i></a>
-                  </p>
+                  {{question.question}}
+                  <a href="#" data-size="medium" data-toggle="popover" data-trigger="hover" title="" data-content="question.hint" data-original-title="Information"><i class="fa fa-question-circle fa-lg"></i></a>
                 </td>
                 <td align="center">
                   <span>
@@ -95,3 +55,5 @@
     </div>
   </div>
 </section>
+<button ng-disabled="vm.previousSection == null" ng-click="vm.back()" class="btn" data-toggle="tooltip" data-placement="top" title="back" data-original-title="Back">Back</button>
+<button ng-disabled="vm.nextSection == null" ng-click="vm.next()" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="next" data-original-title="Next">Next:Interview 1:Skills>></button>
