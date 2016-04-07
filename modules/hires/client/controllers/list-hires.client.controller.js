@@ -14,80 +14,19 @@
       var tempQuestions = [];
       angular.forEach(questions, function (question) {
         var allOK = true;
-        console.log(sections);
         for (var section in sections) {
-          console.log("-----");
-          console.log(section);
-          console.log(sections[section]);
-          console.log(question[section]);
             if (sections[section].localeCompare(question[section]) != 0) {
               allOK = false;
               //break;
             }
           }
         if (allOK) {
-          console.log("push");
           tempQuestions.push(question);
         }
       });
       return tempQuestions;
     };
   }
-
-
-/*
-  function HiresSectionFilter() {
-    return function(questions, sections) {
-
-      var tempQuestions = [];
-      angular.forEach(questions, function (question) {
-        var anyOK = false;
-        for (var section in sections) {
-          var currentOK = true;
-            if (sections[section].localeCompare(question[section])) {
-              currentOK = false;
-              break;
-            }
-            anyOK |= currentOK;
-          }
-        if (anyOK) {
-          tempQuestions.push(question);
-        }
-      });
-      return tempQuestions;
-    };
-  }
-*/
-
-/*
-  function HiresSectionFilter() {
-    return function(questions, sections) {
-
-      var tempQuestions = [];
-      angular.forEach(questions, function (question) {
-        var anyOK = false;
-        for (var section in sections) {
-          console.log(sections);
-          console.log("2 " + section);
-          console.log("3 " + prop);
-          var currentOK = true;
-            for (var prop in section) {
-              console.log(sections[prop]);
-              if (section[prop].localeCompare(question[prop])) {
-                currentOK = false;
-                break;
-              }
-            }
-            anyOK |= currentOK;
-          }
-        if (anyOK) {
-          tempQuestions.push(question);
-        }
-      });
-      return tempQuestions;
-    };
-  }
-*/
 
   function completed(question) {
     if (question.rating.ratingType === 'trueFalse') {

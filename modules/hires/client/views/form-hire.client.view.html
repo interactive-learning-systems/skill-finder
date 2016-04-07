@@ -25,6 +25,9 @@
         <div class="progress-group col-md-4" ng-repeat="unit in vm.units">
           <span class="progress-text">{{unit.name}}</span>
           <span class="progress-number"> {{ (unitQuestions | completed).length}} / {{(unitQuestions = (vm.questions | section: {module:'Hires', unit: unit.name} )).length}}</span>
+          <uib-progressbar max="unitQuestions.length" value="(unitQuestions | completed).length">
+            <span style="color:white; white-space:nowrap;">{{ (unitQuestions | completed).length}}  / {{unitQuestions.length}}</span>
+          </uib-progressbar>
 
 <!--
           <div ng-repeat="item in resultValue=(vm.questions | section: {module:'Hires', unit:'Interview 1'})">
