@@ -40,6 +40,8 @@
                     <input ng-show="question.rating.ratingType==='trueFalse'" type="checkbox" ng-model="question.rating.trueFalse" ng-checked="question.rating.trueFalse" ng-indeterminate="true">
                     <uib-rating ng-show="question.rating.ratingType==='rating4'" ng-model="question.rating.value" max="4" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" enable-reset="true" aria-labelledby="default-rating"></uib-rating>
                     <uib-rating ng-show="question.rating.ratingType==='rating5'" ng-model="question.rating.value" max="5" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" enable-reset="true" aria-labelledby="default-rating"></uib-rating>
+                    <input ng-show="question.rating.ratingType==='xofy'" type="text" size="2" ng-model="question.rating.value">
+                    <input ng-show="question.rating.ratingType==='xofy'" type="text" size="2" ng-model="question.rating.max">
                 </span>
                 </td>
               </tr>

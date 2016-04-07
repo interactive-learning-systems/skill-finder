@@ -212,9 +212,10 @@
           n.unit--;
           if (n.unit < 0) {
             n.module--;
-            if (n.modlue <0) {
-            //Start of list...
-            //
+            if (n.module <0) {
+              vm.previousSectionIndices = null;
+              vm.updateSection();
+              return;
             }
             n.unit =  vm.modules[n.module].value.length-1;
           }
@@ -267,37 +268,6 @@
     };
     vm.previousSection = null;
 
-/*
-    vm.next = function() {
-      vm.previousSection = vm.currentSection;
-      vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Skills'};
-      vm.nextSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Attitude'};
-    }
-
-    vm.back = function() {
-      vm.nextSection = vm.currentSection;
-      vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Knowledge'};
-      vm.previousSection = null;
-    }
-
-    vm.getUnitsForModule = function(module) {
-      return vm.modules[0].value;
-    }
-
-    vm.currentSection = {
-      module:vm.modules[0].module,
-      unit:vm.modules[0].value[0].unit,
-      chapter:vm.modules[0].value[0].value[0].chapter,
-      section:vm.modules[0].value[0].value[0].value[0].section
-    };
-    vm.nextSection = {
-      module:vm.modules[0].module,
-      unit:vm.modules[0].value[0].unit,
-      chapter:vm.modules[0].value[0].value[0].chapter,
-      section:vm.modules[0].value[0].value[0].value[1].section
-    };
-    vm.previousSection = null;
-*/
     //Seed questions
     vm.questions = [{
       created: Date.now,
@@ -310,8 +280,9 @@
       chapter: 'Interview 1',
       section: 'Knowledge',
       rating: {
-        ratingType: 'rating4',
-        value: 3
+        ratingType: 'xofy',
+        value: 3,
+        max: 5
       }
     },
     {
