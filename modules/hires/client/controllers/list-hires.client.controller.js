@@ -7,19 +7,26 @@
   .filter('section', HiresSectionFilter)
   .filter('completed', CompletedFilter);
 
+
   function HiresSectionFilter() {
-    return function(questions, selectionSection) {
+    return function(questions, sections) {
 
       var tempQuestions = [];
       angular.forEach(questions, function (question) {
-        var ok = true;
-        for (var prop in selectionSection) {
-          if (selectionSection[prop].localeCompare(question[prop])) {
-            ok = false;
-            break;
+        var allOK = true;
+        console.log(sections);
+        for (var section in sections) {
+          console.log("-----");
+          console.log(section);
+          console.log(sections[section]);
+          console.log(question[section]);
+            if (sections[section].localeCompare(question[section]) != 0) {
+              allOK = false;
+              //break;
+            }
           }
-        }
-        if (ok) {
+        if (allOK) {
+          console.log("push");
           tempQuestions.push(question);
         }
       });
@@ -27,15 +34,94 @@
     };
   }
 
-  function CompletedFilter() {
-    return function(questions) {
+
+/*
+  function HiresSectionFilter() {
+    return function(questions, sections) {
+
       var tempQuestions = [];
       angular.forEach(questions, function (question) {
-        if (question.rating.rated === true) {
+        var anyOK = false;
+        for (var section in sections) {
+          var currentOK = true;
+            if (sections[section].localeCompare(question[section])) {
+              currentOK = false;
+              break;
+            }
+            anyOK |= currentOK;
+          }
+        if (anyOK) {
           tempQuestions.push(question);
         }
       });
       return tempQuestions;
+    };
+  }
+*/
+
+/*
+  function HiresSectionFilter() {
+    return function(questions, sections) {
+
+      var tempQuestions = [];
+      angular.forEach(questions, function (question) {
+        var anyOK = false;
+        for (var section in sections) {
+          console.log(sections);
+          console.log("2 " + section);
+          console.log("3 " + prop);
+          var currentOK = true;
+            for (var prop in section) {
+              console.log(sections[prop]);
+              if (section[prop].localeCompare(question[prop])) {
+                currentOK = false;
+                break;
+              }
+            }
+            anyOK |= currentOK;
+          }
+        if (anyOK) {
+          tempQuestions.push(question);
+        }
+      });
+      return tempQuestions;
+    };
+  }
+*/
+
+  function completed(question) {
+    if (question.rating.ratingType === 'trueFalse') {
+      return !!question.rating.trueFalse;
+    } else {
+      return question.rating.value > 0;
+    }
+  }
+
+  function CompletedFilter() {
+    return function(questions) {
+      var tempQuestions = [];
+      if (questions) {
+        angular.forEach(questions, function (question) {
+          if (completed(question)) {
+            tempQuestions.push(question);
+          }
+        });
+      }
+      return tempQuestions;
+    };
+  }
+
+  function SumOfFilter() {
+    return function (data, key) {
+        debugger;
+        if (angular.isUndefined(data) && angular.isUndefined(key))
+            return 0;
+        var sum = 0;
+
+        angular.forEach(data,function(v,k){
+            sum = sum + parseInt(v[key]);
+        });
+        return sum;
     };
   }
 
@@ -52,11 +138,11 @@
           user: 1,
           Interviewee: 2,
           question: questionText,
-          section1: 'Hires',
-          section2: 'Interview 1',
-          section3: 'Knowledge',
+          module: 'Hires',
+          unit: 'Interviews',
+          chapter: 'Interview 1',
+          section: 'Knowledge',
           rating: {
-            rated: false,
             ratingType: ratingType,
             trueFalse: null
           }
@@ -64,19 +150,60 @@
       );
     };
 
+    vm.currentQuestionType = function() {
+      if (vm.currentSection.module.localeCompare('Hires')) {
+        return 'trueFalse';
+      } else {
+        return 'rating4';
+      }
+    }
+
+    vm.currentModule = {module:'Hires'};
+    vm.currentUnit = {module:'Hires', unit:'Interviews'};
+    vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Knowledge'};
+
+    vm.units = [
+      {
+        name: 'Interviews',
+        value: [
+          { unit:'Interview 1', section:'Knowledge' },
+          { unit:'Interview 1', section:'Skills' },
+          { unit:'Interview 1', section:'Attitude' },
+          { unit:'Interview 2', section:'Knowledge' },
+          { unit:'Interview 2', section:'Skills' },
+          { ection2:'Interview 2', section:'Attitude' }
+        ]
+      },
+      {
+        name: 'Locations',
+        value: [
+          { unit:'Location 1', section:'Knowledge' },
+          { unit:'Location 2', section:'Knowledge' }
+        ]
+      },
+      {
+        name: 'Checks',
+        value: [
+          { unit:'Checks', section:'Knowledge' },
+          { unit:'Checks', section:'Skills' },
+          { unit:'Checks', section:'Attitude' }
+        ]
+      }
+    ];
+
     vm.questions = [{
       created: Date.now,
       user: 1,
       Interviewee: 2,
       question: 'Works?',
-      section1: 'Hires',
-      section2: 'Interview 1',
-      section3: 'Knowledge',
+      hint: "Hint?",
+      module: 'Hires',
+      unit: 'Interviews',
+      chapter: 'Interview 1',
+      section: 'Knowledge',
       rating: {
-        rated: false,
-        ratingType: 'trueFalse',
-        trueFalse: null,
-        value: 0
+        ratingType: 'rating4',
+        value: 3
       }
     },
     {
@@ -84,13 +211,13 @@
       user: 1,
       Interviewee: 2,
       question: 'Number 2?',
-      section1: 'Hires',
-      section2: 'Interview 1',
-      section3: 'Knowledge',
+      module: 'Hires',
+      unit: 'Interviews',
+      chapter: 'Interview 1',
+      section: 'Knowledge',
       rating: {
-        rated: true,
-        ratingType: 'trueFalse',
-        trueFalse: true
+        ratingType: 'rating4',
+        value: 3
       }
     },
     {
@@ -98,11 +225,11 @@
       user: 1,
       Interviewee: 2,
       question: 'Number 3?',
-      section1: 'Hires',
-      section2: 'Interview 1',
-      section3: 'Knowledge',
+      module: 'Hires',
+      unit: 'Interviews',
+      chapter: 'Interview 1',
+      section: 'Knowledge',
       rating: {
-        rated: false,
         ratingType: 'rating4',
         value: 0
       }
@@ -112,12 +239,12 @@
       user: 1,
       Interviewee: 2,
       question: 'Number 2?',
-      section1: 'Hires',
-      section2: 'Interview 2',
-      section3: 'Knowledge',
+      module: 'Hires',
+      unit: 'Locations',
+      chapter: 'Current',
+      section: 'Knowledge',
       rating: {
-        rated: false,
-        ratingType: 'rating5',
+        ratingType: 'rating4',
         value: 0
       }
     }

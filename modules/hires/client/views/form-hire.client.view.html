@@ -1,4 +1,4 @@
-
+<!--
 <section class="content-header">
   <div class="col-md-12">
     <div class="box box-primary">
@@ -15,6 +15,40 @@
     </div>
   </div>
 </section>
+-->
+
+<section class="content-header">
+  <div class="col-md-12">
+    <div class="box box-primary">
+      <div id="topic" class="box-header with-border"><h3 class="box-title"><b>{{vm.currentSection.unit}}</b> - {{vm.currentSection.section}}</h3></div>
+      <div class="box-body" >
+        <div class="progress-group col-md-4" ng-repeat="unit in vm.units">
+          <span class="progress-text">{{unit.name}}</span>
+          <span class="progress-number"> {{ (unitQuestions | completed).length}} / {{(unitQuestions = (vm.questions | section: {module:'Hires', unit: unit.name} )).length}}</span>
+
+<!--
+          <div ng-repeat="item in resultValue=(vm.questions | section: {module:'Hires', unit:'Interview 1'})">
+          <span class="progress-text">{{unit.name}}</span> <span class="progress-number">1 / 20</span>
+          <uib-progressbar max="20" value="1">
+            <span style="color:white; white-space:nowrap;">1 / 20</span>
+          </uib-progressbar>
+
+
+        </div>
+-->
+<!--
+          <tr ng-repeat="question in filtered = (vm.questions | section:{module:'Hires', unit:'Interview 1', section:'Knowledge'})">
+          <span class="progress-number">{{ (sectionQuestions | completed).length }} / (sectionQuestions = (vm.questions | section:subsection.value)).length }} </span>
+          <uib-progressbar max="sectionQuestions.length" value="(sectionQuestions | completed).length">
+            <span style="color:white; white-space:nowrap;">{{ (sectionQuestions | completed).length }} / {{ sectionQuestions.length }}</span>
+          </uib-progressbar>
+-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="content">
   <div class="col-md-12">
@@ -22,9 +56,7 @@
         <div class="box-header">
           <h3 class="box-title">Questions for the candidate</h3>
 
-          <div class="box-tools">
-
-          </div>
+          <div class="box-tools"></div>
         </div>
         <div class="box-body table-responsive no-padding">
           <table id="attitude-table" class="table table-fixed table-striped">
@@ -32,10 +64,14 @@
               <tr id="attitude-header">
                 <th class="text-center"></th><th class="text-center">ID</th> <th>Question</th> <th class="text-center">Rating</th>
               </tr>
-              <tr ng-repeat="question in filtered = (vm.questions | section:{section1:'Hires', section2:'Interview 1', section3:'Knowledge'})">
+              <tr ng-repeat="question in filtered = (vm.questions | section: vm.currentSection)">
                 <td align="center"></td>
                 <td align="center">1</td>
-                <td><p class="list-group-item-text" ng-bind="question.question"></p></td>
+                <td>
+                  <p class="list-group-item-text" ng-bind="question.question">
+                    <a href="#" data-size="large" data-toggle="popover" data-trigger="hover" title="Information" data-content="question.hint" data-original-title="Information"><i class="fa fa-question-circle fa-lg"></i></a>
+                  </p>
+                </td>
                 <td align="center">
                   <span>
                     <input ng-show="question.rating.ratingType==='trueFalse'" type="checkbox" ng-model="question.rating.trueFalse" ng-checked="question.rating.trueFalse" ng-indeterminate="true">
@@ -45,16 +81,9 @@
                 </td>
               </tr>
               <tr>
-                <td align="center"><button ng-disabled="!vm.newQuestion" ng-click="vm.addRow(vm.newQuestion, vm.newRatingType)" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Question"><i class="fa fa-plus"></i></button></td>
-                <td></td>
-                <td><input type="text" name="question" data-ng-model="vm.newQuestion" class="form-control" cols="30" rows="1" placeholder="Question"></textarea></td>
-                <td align="center">
-                  <select ng-model="vm.newRatingType" ng-init="vm.newRatingType='trueFalse'" >
-                    <option value="trueFalse">True / False</option>
-                    <option value="rating4">4 Star</option>
-                    <option value="rating5">5 Star</option>
-                  </select>
-                </td>
+                <td align="center"><button ng-disabled="!vm.newQuestion" ng-click="vm.addRow(vm.newQuestion, vm.currentQuestionType())" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Question"><i class="fa fa-plus"></i></button></td>
+                <td colspan="3"><input type="text" name="question" data-ng-model="vm.newQuestion" class="form-control" cols="30" rows="1" placeholder="Enter your question"></textarea><br>
+                                <input type="text" name="questionHint" data-ng-model="vm.newQuestionHint" class="form-control" cols="30" rows="1" placeholder="Enter help information about your question"></textarea></td>
               </tr>
             </tbody>
           </table>
