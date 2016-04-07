@@ -56,4 +56,4 @@
   </div>
 </section>
 <button ng-disabled="vm.previousSection == null" ng-click="vm.back()" class="btn" data-toggle="tooltip" data-placement="top" title="back" data-original-title="Back">Back</button>
-<button ng-disabled="vm.nextSection == null" ng-click="vm.next()" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="next" data-original-title="Next">Next:Interview 1:Skills>></button>
+<button ng-disabled="vm.nextSection == null" ng-click="vm.next()" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="next" data-original-title="Next">Next: {{vm.nextSection.unit}}</b> - {{vm.nextSection.section}} >></button>

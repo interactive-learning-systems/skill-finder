@@ -97,30 +97,9 @@
       }
     }
 
-    vm.next = function() {
-      vm.previousSection = vm.currentSection;
-      vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Skills'};
-      vm.nextSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Attitude'};
-    }
-
-    vm.back = function() {
-      vm.nextSection = vm.currentSection;
-      vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Knowledge'};
-      vm.previousSection = null;
-    }
-
-    vm.getUnitsForModule = function(module) {
-      console.log(vm.modules[0].value);
-      return vm.modules[0].value;
-    }
-
-    vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Knowledge'};
-    vm.nextSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Knowledge'};
-    vm.previousSection = null;
-
     vm.modules = [
       {
-        module: "Hire",
+        module: "Hires",
         value: [
           {
             unit: 'Interviews',
@@ -194,76 +173,132 @@
       }
     ];
 
-/*
+    vm.next = function() {
+      vm.previousSectionIndices = vm.currentSectionIndices;
+      vm.currentSectionIndices = vm.nextSectionIndices;
+      vm.nextSectionIndices = {module:vm.nextSectionIndices.module, unit:vm.nextSectionIndices.unit, chapter:vm.nextSectionIndices.chapter, section:vm.nextSectionIndices.section+1};
 
-vm.modules = [
-  {
-    module: "Hire",
-    value: [
-      {
-        unit: 'Interviews',
-        value: [
-          { chapter:'Interview 1', section:'Knowledge' },
-          { chapter:'Interview 1', section:'Skills' },
-          { chapter:'Interview 1', section:'Attitude' },
-          { chapter:'Interview 2', section:'Knowledge' },
-          { chapter:'Interview 2', section:'Skills' },
-          { chapter:'Interview 2', section:'Attitude' }
-        ]
-      },
-      {
-        unit: 'Locations',
-        value: [
-          { chapter:'Location 1', section:'Knowledge' },
-          { chapter:'Location 2', section:'Knowledge' }
-        ]
-      },
-      {
-        unit: 'Checks',
-        value: [
-          { chapter:'Checks', section:'Knowledge' },
-          { chapter:'Checks', section:'Skills' },
-          { chapter:'Checks', section:'Attitude' }
-        ]
+      var n = vm.nextSectionIndices;
+      if (n.section >= vm.modules[n.module].value[n.unit].value[n.chapter].value.length) {
+        n.chapter++;
+        n.section = 0;
       }
-    ]
-  }
-];
+      if (n.chapter >= vm.modules[n.module].value[n.unit].value.length) {
+        n.unit++;
+        n.chapter = 0;
+      }
+      if (n.unit >= vm.modules[n.module].value.length) {
+        n.module++;
+        n.unit = 0;
+      }
+      if (n.modlue > vm.modules.length) {
+        //Done...
+      }
 
-*/
+      vm.updateSection();
+    }
 
+    vm.back = function() {
+      console.log (vm.previousSectionIndices);
+
+      vm.nextSectionIndices = vm.currentSectionIndices;
+      vm.currentSectionIndices = vm.previousSectionIndices;
+      vm.previousSectionIndices = {module:vm.previousSectionIndices.module, unit:vm.previousSectionIndices.unit, chapter:vm.previousSectionIndices.chapter, section:vm.previousSectionIndices.section-1};
+
+      var n = vm.previousSectionIndices;
+      if (n.section < 0) {
+        n.chapter--;
+        if (n.chapter < 0) {
+          n.unit--;
+          if (n.unit < 0) {
+            n.module--;
+            if (n.modlue <0) {
+            //Start of list...
+            //
+            }
+            n.unit =  vm.modules[n.module].value.length-1;
+          }
+          n.chapter = vm.modules[n.module].value[n.unit].value.length-1;
+        }
+        n.section = vm.modules[n.module].value[n.unit].value[n.chapter].value.length-1;
+      }
+
+      vm.updateSection();
+    }
+
+    vm.updateSection = function() {
+      vm.previousSection = vm.getSection(vm.previousSectionIndices);
+      vm.currentSection = vm.getSection(vm.currentSectionIndices);
+      vm.nextSection = vm.getSection(vm.nextSectionIndices);
+    }
+    vm.getSection = function(s) {
+      if (s == null) { return null};
+
+      return {
+        module:vm.modules[s.module].module,
+        unit:vm.modules[s.module].value[s.unit].unit,
+        chapter:vm.modules[s.module].value[s.unit].value[s.chapter].chapter,
+        section:vm.modules[s.module].value[s.unit].value[s.chapter].value[s.section].section
+      }
+    }
+
+    vm.getUnitsForModule = function(module) {
+      return vm.modules[0].value;
+    }
+
+    vm.previousSectionIndices = null;
+    vm.currentSectionIndices = {module: 0, unit: 0, chapter: 0, section: 0};
+    vm.nextSectionIndices = {module: 0, unit: 0, chapter: 0, section: 1};
+
+    vm.updateSection();
+
+    vm.currentSection = {
+
+      module:vm.modules[0].module,
+      unit:vm.modules[0].value[0].unit,
+      chapter:vm.modules[0].value[0].value[0].chapter,
+      section:vm.modules[0].value[0].value[0].value[0].section
+    };
+    vm.nextSection = {
+      module:vm.modules[0].module,
+      unit:vm.modules[0].value[0].unit,
+      chapter:vm.modules[0].value[0].value[0].chapter,
+      section:vm.modules[0].value[0].value[0].value[1].section
+    };
+    vm.previousSection = null;
 
 /*
-    vm.units = [
-      {
-        name: 'Interviews',
-        value: [
-          { unit:'Interview 1', section:'Knowledge' },
-          { unit:'Interview 1', section:'Skills' },
-          { unit:'Interview 1', section:'Attitude' },
-          { unit:'Interview 2', section:'Knowledge' },
-          { unit:'Interview 2', section:'Skills' },
-          { ection2:'Interview 2', section:'Attitude' }
-        ]
-      },
-      {
-        name: 'Locations',
-        value: [
-          { unit:'Location 1', section:'Knowledge' },
-          { unit:'Location 2', section:'Knowledge' }
-        ]
-      },
-      {
-        name: 'Checks',
-        value: [
-          { unit:'Checks', section:'Knowledge' },
-          { unit:'Checks', section:'Skills' },
-          { unit:'Checks', section:'Attitude' }
-        ]
-      }
-    ];
-*/
+    vm.next = function() {
+      vm.previousSection = vm.currentSection;
+      vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Skills'};
+      vm.nextSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Attitude'};
+    }
 
+    vm.back = function() {
+      vm.nextSection = vm.currentSection;
+      vm.currentSection = {module:'Hires', unit:'Interviews', chapter:'Interview 1', section:'Knowledge'};
+      vm.previousSection = null;
+    }
+
+    vm.getUnitsForModule = function(module) {
+      return vm.modules[0].value;
+    }
+
+    vm.currentSection = {
+      module:vm.modules[0].module,
+      unit:vm.modules[0].value[0].unit,
+      chapter:vm.modules[0].value[0].value[0].chapter,
+      section:vm.modules[0].value[0].value[0].value[0].section
+    };
+    vm.nextSection = {
+      module:vm.modules[0].module,
+      unit:vm.modules[0].value[0].unit,
+      chapter:vm.modules[0].value[0].value[0].chapter,
+      section:vm.modules[0].value[0].value[0].value[1].section
+    };
+    vm.previousSection = null;
+*/
+    //Seed questions
     vm.questions = [{
       created: Date.now,
       user: 1,
