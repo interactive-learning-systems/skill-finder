@@ -90,8 +90,11 @@
     };
 
     vm.currentQuestionType = function() {
-      if (vm.currentSection.module.localeCompare('Hires')) {
+      console.log(vm.currentSection.unit);
+      if (vm.currentSection.unit.localeCompare('Checks') == 0) {
         return 'trueFalse';
+      } else if (vm.currentSection.unit.localeCompare('Tests') == 0) {
+        return 'xofy';
       } else {
         return 'rating4';
       }
