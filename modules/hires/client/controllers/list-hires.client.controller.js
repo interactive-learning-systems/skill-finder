@@ -69,24 +69,27 @@
   function HiresListController($scope, HiresService) {
     var vm = this;
 
-    vm.addRow = function(questionText, ratingType) {
+    vm.addRow = function(ratingType) {
 
       vm.questions.push(
         {
           created: Date.now,
           user: 1,
           Interviewee: 2,
-          question: questionText,
+          question: vm.newQuestion,
+          hint: vm.newQuestionHint,
           module: vm.currentSection.module,
           unit: vm.currentSection.unit,
           chapter: vm.currentSection.chapter,
           section: vm.currentSection.section,
           rating: {
-            ratingType: ratingType,
+            ratingType: vm.currentQuestionType(),
             trueFalse: null
           }
         }
       );
+      vm.newQuestion = "";
+      vm.newQuestionHint = "";
     };
 
     vm.currentQuestionType = function() {

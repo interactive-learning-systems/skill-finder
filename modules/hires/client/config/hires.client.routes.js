@@ -32,9 +32,9 @@
           pageTitle: 'Hires List'
         }
       })
-      .state('hires.interview_1_knowledge', {
-        url: '/interview_1_knowledge',
-        templateUrl: 'modules/hires/client/views/form-hire.client.view.html',
+      .state('hires.interview_1', {
+        url: '/interview_1',
+        templateUrl: 'modules/hires/client/views/list-hires.client.view.html',
         controller: 'HiresListController',
         controllerAs: 'vm',
         resolve: {
@@ -42,10 +42,10 @@
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Hire: Interview 1 - Knowledge'
+          pageTitle: 'Hire: Interview 1 - Knowledge',
         }
       })
-      .state('hires.interview_2_knowledge', {
+      .state('hires.interview_2', {
         url: '/interview_2_knowledge',
         templateUrl: 'modules/hires/client/views/form-hire.client.view.html',
         controller: 'HiresListController',
@@ -55,7 +55,7 @@
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Hire: Interview 2 - Knowledge'
+          pageTitle: 'Hire: Interview 2 - Knowledge',
         }
       })
       .state('hires.edit', {
