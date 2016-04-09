@@ -93,7 +93,6 @@
     };
 
     vm.currentQuestionType = function() {
-      console.log(vm.currentSection.unit);
       if (vm.currentSection.unit.localeCompare('Checks') == 0) {
         return 'trueFalse';
       } else if (vm.currentSection.unit.localeCompare('Tests') == 0) {
@@ -155,9 +154,7 @@
               {
                 chapter:'Checks',
                 value: [
-                  {section: 'Knowledge'},
-                  {section: 'Skills'},
-                  {section: 'Attitude'},
+                  {section: 'Checks'},
                 ]
               },
             ]
@@ -205,7 +202,6 @@
     }
 
     vm.back = function() {
-      console.log (vm.previousSectionIndices);
 
       vm.nextSectionIndices = vm.currentSectionIndices;
       vm.currentSectionIndices = vm.previousSectionIndices;
