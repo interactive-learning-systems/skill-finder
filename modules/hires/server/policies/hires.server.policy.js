@@ -15,29 +15,47 @@ exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/hires',
+      resources: '/api/hires/interview',
       permissions: '*'
     }, {
-      resources: '/api/hires/:hireId',
+      resources: '/api/hires/interview/:interviewId',
+      permissions: '*'
+    }, {
+      resources: '/api/hires/question',
+      permissions: '*'
+    }, {
+      resources: '/api/hires/question/:questionId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/hires',
+      resources: '/api/hires/interview',
       permissions: ['get', 'post']
     }, {
-      resources: '/api/hires/:hireId',
+      resources: '/api/hires/interview/:interviewId',
       permissions: ['get']
+    }, {
+      resources: '/api/hires/question',
+      permissions: '*'
+    }, {
+      resources: '/api/hires/question/:questionId',
+      permissions: '*'
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/hires',
+      resources: '/api/hires/interview',
       permissions: ['get']
     }, {
-      resources: '/api/hires/:hireId',
+      resources: '/api/hires/interview/:interviewId',
       permissions: ['get']
+    }, {
+      resources: '/api/hires/question',
+      permissions: '*'
+    }, {
+      resources: '/api/hires/question/:questionId',
+      permissions: '*'
     }]
   }]);
 };
@@ -46,10 +64,13 @@ exports.invokeRolesPolicies = function () {
  * Check If Hires Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
+  return next();
+};
+/*
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an hire is being processed and the current user created it then allow any manipulation
-  if (req.hire && req.user && req.hire.user && req.hire.user.id === req.user.id) {
+  if (req.interview && req.user && req.interview.user && req.interview.user.id === req.user.id) {
     return next();
   }
 
@@ -70,3 +91,4 @@ exports.isAllowed = function (req, res, next) {
     }
   });
 };
+*/

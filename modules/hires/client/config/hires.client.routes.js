@@ -9,27 +9,18 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('hire.interview.1', {
-        url: '/interview1',
-        templateUrl: 'modules/hire/client/views/form-hire.client.view.html',
-        controller: 'HiresListController',
-        controllerAs: 'vm',
-        data: {
-          pageTitle: 'Interview 1'
-        }
-      })
       .state('hires', {
         abstract: true,
         url: '/hires',
         template: '<ui-view/>'
       })
-      .state('hires.list', {
-        url: '',
-        templateUrl: 'modules/hires/client/views/list-hires.client.view.html',
-        controller: 'HiresListController',
+      .state('hires.interview', {
+        url: '/interview',
+        templateUrl: 'modules/hires/client/views/interview-hires.client.view.html',
+        controller: 'InterviewHiresController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Hires List'
+          pageTitle: 'SkillFinderQ Hiring Module - Interview'
         }
       })
       .state('hires.interview_1', {
@@ -37,65 +28,90 @@
         templateUrl: 'modules/hires/client/views/list-hires.client.view.html',
         controller: 'HiresListController',
         controllerAs: 'vm',
-        resolve: {
-          hireResolve: newHire
-        },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Hire: Interview 1 - Knowledge',
+          pageTitle: 'SkillFinderQ Hiring Module - Interview 1',
+          section: { module: 0, unit: 0, chapter: 0, section: 0 }
         }
       })
       .state('hires.interview_2', {
-        url: '/interview_2_knowledge',
-        templateUrl: 'modules/hires/client/views/form-hire.client.view.html',
+        url: '/interview_2',
+        templateUrl: 'modules/hires/client/views/list-hires.client.view.html',
         controller: 'HiresListController',
         controllerAs: 'vm',
-        resolve: {
-          hireResolve: newHire
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'SkillFinderQ Hiring Module - Interview 2',
+          section: { module: 0, unit: 0, chapter: 1, section: 0 }
+        }
+      })
+      .state('hires.location_1', {
+        url: '/location_1',
+        templateUrl: 'modules/hires/client/views/list-hires.client.view.html',
+        controller: 'HiresListController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'SkillFinderQ Hiring Module - Previous Location',
+          section: { module: 0, unit: 1, chapter: 0, section: 0 }
+        }
+      })
+      .state('hires.location_2', {
+        url: '/location_2',
+        templateUrl: 'modules/hires/client/views/list-hires.client.view.html',
+        controller: 'HiresListController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'SkillFinderQ Hiring Module - Current Location',
+          section: { module: 0, unit: 1, chapter: 1, section: 0 }
+        }
+      })
+      .state('hires.checks', {
+        url: '/checks',
+        templateUrl: 'modules/hires/client/views/list-hires.client.view.html',
+        controller: 'HiresListController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'SkillFinderQ Hiring Module - Checks',
+          section: { module: 0, unit: 2, chapter: 0, section: 0 }
+        }
+      })
+      .state('hires.tests', {
+        url: '/tests',
+        templateUrl: 'modules/hires/client/views/list-hires.client.view.html',
+        controller: 'HiresListController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'SkillFinderQ Hiring Module - Tests',
+          section: { module: 0, unit: 3, chapter: 0, section: 0 }
+        }
+      })
+      .state('hires.comparisonReport', {
+        url: '/reports/comparison',
+        templateUrl: 'modules/hires/client/views/comparison-report-hires.client.view.html',
+        controller: 'HiresReportsController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'SkillFinderQ Hiring Module - Comparison Report'
+        }
+      })
+      .state('hires.candidateReport', {
+        url: '/reports/candidate',
+        templateUrl: 'modules/hires/client/views/individual-report-hires.client.view.html',
+        controller: 'HiresIndividualReportController',
+        controllerAs: 'vm',
+        params: {
+          id: {}
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Hire: Interview 2 - Knowledge',
-        }
-      })
-      .state('hires.edit', {
-        url: '/:hireId/edit',
-        templateUrl: 'modules/hires/client/views/form-hire.client.view.html',
-        controller: 'HiresController',
-        controllerAs: 'vm',
-        resolve: {
-          hireResolve: getHire
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Edit Hire {{ hireResolve.title }}'
-        }
-      })
-      .state('hires.view', {
-        url: '/:hireId',
-        templateUrl: 'modules/hires/client/views/view-hire.client.view.html',
-        controller: 'HiresController',
-        controllerAs: 'vm',
-        resolve: {
-          hireResolve: getHire
-        },
-        data: {
-          pageTitle: 'Hire {{ hireResolve.title }}'
+          pageTitle: 'SkillFinderQ Hiring Module - Individual Report'
         }
       });
   }
 
-  getHire.$inject = ['$stateParams', 'HiresService'];
-
-  function getHire($stateParams, HiresService) {
-    return HiresService.get({
-      hireId: $stateParams.hireId
-    }).$promise;
-  }
-
-  newHire.$inject = ['HiresService'];
-
-  function newHire(HiresService) {
-    return new HiresService();
-  }
 }());

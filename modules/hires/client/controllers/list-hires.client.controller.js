@@ -3,10 +3,7 @@
 
   angular
   .module('hires')
-  .controller('HiresListController', HiresListController)
-  .filter('section', HiresSectionFilter)
-  .filter('completed', CompletedFilter);
-
+  .controller('HiresListController', HiresListController);
 
   function HiresSectionFilter() {
     return function(questions, sections) {
@@ -15,11 +12,10 @@
       angular.forEach(questions, function (question) {
         var allOK = true;
         for (var section in sections) {
-            if (sections[section].localeCompare(question[section]) != 0) {
-              allOK = false;
-              //break;
-            }
+          if (sections[section].localeCompare(question[section]) !== 0) {
+            allOK = false;
           }
+        }
         if (allOK) {
           tempQuestions.push(question);
         }
@@ -52,77 +48,43 @@
 
   function SumOfFilter() {
     return function (data, key) {
-        debugger;
-        if (angular.isUndefined(data) && angular.isUndefined(key))
-            return 0;
-        var sum = 0;
+      if (angular.isUndefined(data) && angular.isUndefined(key)) {
+        return 0;
+      }
+      var sum = 0;
 
-        angular.forEach(data,function(v,k){
-            sum = sum + parseInt(v[key]);
-        });
-        return sum;
+      angular.forEach(data, function(v, k) {
+        sum = sum + parseInt(v[key], 10);
+      });
+      return sum;
     };
   }
 
-  HiresListController.$inject = ['$scope', 'HiresService'];
+  HiresListController.$inject = ['$scope', '$state', 'InterviewManager', 'QuestionManager'];
 
-  function HiresListController($scope, HiresService) {
+  function HiresListController($scope, $state, InterviewManager, QuestionManager) {
     var vm = this;
-
-    vm.addRow = function(ratingType) {
-
-      vm.questions.push(
-        {
-          created: Date.now,
-          user: 1,
-          Interviewee: 2,
-          question: vm.newQuestion,
-          hint: vm.newQuestionHint,
-          module: vm.currentSection.module,
-          unit: vm.currentSection.unit,
-          chapter: vm.currentSection.chapter,
-          section: vm.currentSection.section,
-          rating: {
-            ratingType: vm.currentQuestionType(),
-            trueFalse: null
-          }
-        }
-      );
-      vm.newQuestion = "";
-      vm.newQuestionHint = "";
-    };
-
-    vm.currentQuestionType = function() {
-      if (vm.currentSection.unit.localeCompare('Checks') == 0) {
-        return 'trueFalse';
-      } else if (vm.currentSection.unit.localeCompare('Tests') == 0) {
-        return 'xofy';
-      } else {
-        return 'rating4';
-      }
-    }
-
     vm.modules = [
       {
-        module: "Hires",
+        module: 'Hires',
         value: [
           {
             unit: 'Interviews',
             value: [
               {
-                chapter:'Interview 1',
+                chapter: 'Interview 1',
                 value: [
-                  {section: 'Knowledge'},
-                  {section: 'Skills'},
-                  {section: 'Attitude'},
+                  { section: 'Knowledge' },
+                  { section: 'Skills' },
+                  { section: 'Attitude' }
                 ]
               },
               {
-                chapter:'Interview 2',
+                chapter: 'Interview 2',
                 value: [
-                  {section: 'Knowledge'},
-                  {section: 'Skills'},
-                  {section: 'Attitude'},
+                  { section: 'Knowledge' },
+                  { section: 'Skills' },
+                  { section: 'Attitude' }
                 ]
               }
             ]
@@ -131,19 +93,19 @@
             unit: 'Locations',
             value: [
               {
-                chapter:'Previous',
+                chapter: 'Previous',
                 value: [
-                  {section: 'Knowledge'},
-                  {section: 'Skills'},
-                  {section: 'Attitude'},
+                  { section: 'Knowledge' },
+                  { section: 'Skills' },
+                  { section: 'Attitude' }
                 ]
               },
               {
-                chapter:'Current',
+                chapter: 'Current',
                 value: [
-                  {section: 'Knowledge'},
-                  {section: 'Skills'},
-                  {section: 'Attitude'},
+                  { section: 'Knowledge' },
+                  { section: 'Skills' },
+                  { section: 'Attitude' }
                 ]
               }
             ]
@@ -152,36 +114,91 @@
             unit: 'Checks',
             value: [
               {
-                chapter:'Checks',
+                chapter: 'Checks',
                 value: [
-                  {section: 'Checks'},
+                  { section: 'Checks' }
                 ]
-              },
+              }
             ]
           },
           {
             unit: 'Tests',
             value: [
               {
-                chapter:'Tests',
+                chapter: 'Tests',
                 value: [
-                  {section: 'Knowledge'},
-                  {section: 'Skills'},
-                  {section: 'Attitude'},
+                  { section: 'Knowledge' },
+                  { section: 'Skills' },
+                  { section: 'Attitude' }
                 ]
-              },
+              }
             ]
-          },
+          }
         ]
       }
     ];
 
-    vm.next = function() {
-      vm.previousSectionIndices = vm.currentSectionIndices;
-      vm.currentSectionIndices = vm.nextSectionIndices;
-      vm.nextSectionIndices = {module:vm.nextSectionIndices.module, unit:vm.nextSectionIndices.unit, chapter:vm.nextSectionIndices.chapter, section:vm.nextSectionIndices.section+1};
+    vm.interview = InterviewManager.retrieveCurrentInterview();
+    if (!vm.interview._id) $state.go('hires.interview');
 
-      var n = vm.nextSectionIndices;
+    vm.addRow = function() {
+      var question = {
+        question: vm.newQuestion, hint: vm.newQuestionHint,
+        module: vm.currentSection.module, unit: vm.currentSection.unit, chapter: vm.currentSection.chapter, section: vm.currentSection.section,
+        rating: { ratingType: vm.currentQuestionType() }
+      };
+      vm.interview.questions.push(question);
+      QuestionManager.setQuestions(question).save();
+      vm.newQuestion = '';
+      vm.newQuestionHint = '';
+    };
+
+    vm.currentQuestionType = function() {
+      switch (vm.currentSection.unit) {
+        case 'Checks': return 'trueFalse';
+        case 'Tests': return 'xofy';
+        default: return 'rating4';
+      }
+    };
+
+    vm.saveOrUpdate = function(isValid, newState, newStateParams) {
+      vm.interview.saveOrUpdate().then(function(response) {
+        vm.interview.setData(response.data);
+        if (newState) {
+          $state.go(newState, newStateParams);
+        }
+      }).catch(function() {
+        $scope.error = 'Unable to save the interview';
+      });
+    };
+
+    vm.updateSection = function() {
+      vm.previousSection = vm.getSection(vm.previousSectionIndices);
+      vm.currentSection = vm.getSection(vm.currentSectionIndices);
+      vm.nextSection = vm.getSection(vm.nextSectionIndices);
+    };
+
+    vm.getSection = function(s) {
+      if (s == null || s.module >= vm.modules.length) {
+        return null;
+      }
+
+      return {
+        module: vm.modules[s.module].module,
+        unit: vm.modules[s.module].value[s.unit].unit,
+        chapter: vm.modules[s.module].value[s.unit].value[s.chapter].chapter,
+        section: vm.modules[s.module].value[s.unit].value[s.chapter].value[s.section].section
+      };
+    };
+
+    vm.getNextSection = function(s) {
+      var n = {
+        module: s.module,
+        unit: s.unit,
+        chapter: s.chapter,
+        section: s.section + 1
+      };
+
       if (n.section >= vm.modules[n.module].value[n.unit].value[n.chapter].value.length) {
         n.chapter++;
         n.section = 0;
@@ -195,141 +212,74 @@
         n.unit = 0;
       }
       if (n.modlue > vm.modules.length) {
-        //Done...
+        return null;
       }
+      return n;
+    };
 
-      vm.updateSection();
-    }
+    vm.getPreviousSection = function(s) {
+      var n = {
+        module: s.module,
+        unit: s.unit,
+        chapter: s.chapter,
+        section: s.section - 1 };
 
-    vm.back = function() {
-
-      vm.nextSectionIndices = vm.currentSectionIndices;
-      vm.currentSectionIndices = vm.previousSectionIndices;
-      vm.previousSectionIndices = {module:vm.previousSectionIndices.module, unit:vm.previousSectionIndices.unit, chapter:vm.previousSectionIndices.chapter, section:vm.previousSectionIndices.section-1};
-
-      var n = vm.previousSectionIndices;
       if (n.section < 0) {
         n.chapter--;
         if (n.chapter < 0) {
           n.unit--;
           if (n.unit < 0) {
             n.module--;
-            if (n.module <0) {
-              vm.previousSectionIndices = null;
-              vm.updateSection();
-              return;
+            if (n.module < 0) {
+              return null;
             }
-            n.unit =  vm.modules[n.module].value.length-1;
+            n.unit = vm.modules[n.module].value.length - 1;
           }
-          n.chapter = vm.modules[n.module].value[n.unit].value.length-1;
+          n.chapter = vm.modules[n.module].value[n.unit].value.length - 1;
         }
-        n.section = vm.modules[n.module].value[n.unit].value[n.chapter].value.length-1;
+        n.section = vm.modules[n.module].value[n.unit].value[n.chapter].value.length - 1;
       }
+      return n;
+    };
 
-      vm.updateSection();
-    }
-
-    vm.updateSection = function() {
-      vm.previousSection = vm.getSection(vm.previousSectionIndices);
-      vm.currentSection = vm.getSection(vm.currentSectionIndices);
-      vm.nextSection = vm.getSection(vm.nextSectionIndices);
-    }
-    vm.getSection = function(s) {
-      if (s == null) { return null};
-
-      return {
-        module:vm.modules[s.module].module,
-        unit:vm.modules[s.module].value[s.unit].unit,
-        chapter:vm.modules[s.module].value[s.unit].value[s.chapter].chapter,
-        section:vm.modules[s.module].value[s.unit].value[s.chapter].value[s.section].section
-      }
-    }
-
-    vm.getUnitsForModule = function(module) {
-      return vm.modules[0].value;
-    }
-
-    vm.previousSectionIndices = null;
-    vm.currentSectionIndices = {module: 0, unit: 0, chapter: 0, section: 0};
-    vm.nextSectionIndices = {module: 0, unit: 0, chapter: 0, section: 1};
-
+    vm.currentSectionIndices = $state.current.data.section;
+    vm.previousSectionIndices = vm.getPreviousSection(vm.currentSectionIndices);
+    vm.nextSectionIndices = vm.getNextSection(vm.currentSectionIndices);
     vm.updateSection();
 
-    vm.currentSection = {
-
-      module:vm.modules[0].module,
-      unit:vm.modules[0].value[0].unit,
-      chapter:vm.modules[0].value[0].value[0].chapter,
-      section:vm.modules[0].value[0].value[0].value[0].section
+    vm.next = function() {
+      var newState = null;  // Stay in the current state
+      var newStateParams = null;  // Stay in the current state
+      if (vm.nextSection === null) {
+        newState = 'hires.candidateReport';
+        newStateParams = { id: vm.interview._id };
+        InterviewManager.clearCurrentInterview();
+      } else {
+        vm.previousSectionIndices = vm.currentSectionIndices;
+        vm.currentSectionIndices = vm.nextSectionIndices;
+        vm.nextSectionIndices = vm.getNextSection(vm.nextSectionIndices);
+        vm.updateSection();
+      }
+      vm.saveOrUpdate(true, newState, newStateParams);
     };
-    vm.nextSection = {
-      module:vm.modules[0].module,
-      unit:vm.modules[0].value[0].unit,
-      chapter:vm.modules[0].value[0].value[0].chapter,
-      section:vm.modules[0].value[0].value[0].value[1].section
-    };
-    vm.previousSection = null;
 
-    //Seed questions
-    vm.questions = [{
-      created: Date.now,
-      user: 1,
-      Interviewee: 2,
-      question: 'Works?',
-      hint: "Hint?",
-      module: 'Hires',
-      unit: 'Interviews',
-      chapter: 'Interview 1',
-      section: 'Knowledge',
-      rating: {
-        ratingType: 'xofy',
-        value: 3,
-        max: 5
+    vm.back = function() {
+      var newState = null;  // Stay in the current state
+      if (vm.previousSection === null) {
+        newState = 'hires.interview';
+      } else {
+        vm.nextSectionIndices = vm.currentSectionIndices;
+        vm.currentSectionIndices = vm.previousSectionIndices;
+        vm.previousSectionIndices = vm.getPreviousSection(vm.previousSectionIndices);
+        vm.updateSection();
       }
-    },
-    {
-      created: Date.now,
-      user: 1,
-      Interviewee: 2,
-      question: 'Number 2?',
-      module: 'Hires',
-      unit: 'Interviews',
-      chapter: 'Interview 1',
-      section: 'Knowledge',
-      rating: {
-        ratingType: 'rating4',
-        value: 3
-      }
-    },
-    {
-      created: Date.now,
-      user: 1,
-      Interviewee: 2,
-      question: 'Number 3?',
-      module: 'Hires',
-      unit: 'Interviews',
-      chapter: 'Interview 1',
-      section: 'Knowledge',
-      rating: {
-        ratingType: 'rating4',
-        value: 0
-      }
-    },
-    {
-      created: Date.now,
-      user: 1,
-      Interviewee: 2,
-      question: 'Number 2?',
-      module: 'Hires',
-      unit: 'Locations',
-      chapter: 'Current',
-      section: 'Knowledge',
-      rating: {
-        ratingType: 'rating4',
-        value: 0
-      }
-    }
-  ];
+      vm.saveOrUpdate(true, newState);
+    };
+
+    vm.getUnits = function() {
+      return vm.modules[0].value;
+    };
+    vm.updateSection();
 
   }
 }());

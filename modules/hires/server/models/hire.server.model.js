@@ -1,15 +1,79 @@
 'use strict';
 
 /**
- * Module dependencies
- */
+* Module dependencies
+*/
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Hire Schema
- */
+* Question Schema
+*/
 var QuestionSchema = new Schema({
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  question: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Question cannot be blank'
+  },
+  hint: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  module: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Module cannot be blank'
+  },
+  unit: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Unit cannot be blank'
+  },
+  chapter: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Chapter cannot be blank'
+  },
+  section: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Section cannot be blank'
+  },
+  rating: {
+    ratingType: {
+      type: String,
+      default: 'rating4', // rating4, rating5, xofy, trueFalse
+      enum: ['rating4', 'rating5', 'xofy', 'trueFalse']
+    },
+    trueFalse: {
+      type: Boolean,
+      default: null
+    },
+    value: {
+      type: Number,
+      default: '0'
+    },
+    max: {
+      type: Number,
+      default: '1'
+    }
+  }
+});
+
+/**
+* Interview Schema
+*/
+var InterviewSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
@@ -18,49 +82,38 @@ var QuestionSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  interviewee: {
-    type: Schema.ObjectId,
-    ref: 'User'
-  },
-  question: {
+  interviewer: {
     type: String,
     default: '',
     trim: true,
-    required: 'Question cannot be blank'
+    required: 'Interviewer cannot be blank'
   },
-  section: {
-    sectionTopName: {
-      type: String,
-      default: '',
-      trim: true,
-      required: 'Section Top Name cannot be blank'
-    },
-    sectionSubName: {
-      type: String,
-      default: '',
-      trim: true,
-      required: 'Section Sub Name cannot be blank'
-    }
+  candidate: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Candidate cannot be blank'
   },
-  rating: {
-    ratingType: {
-      type: String,
-      default: 'rating5',
-      trim: true
-    },
-    rated: {
-      type: Boolean,
-      default: 'false'
-    },
-    trueFalse: {
-      type: Boolean,
-      default: 'true'
-    },
-    value: {
-      type: Number,
-      default: '1'
-    }
-  }
+  location: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Location cannot be blank'
+  },
+  position: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Position cannot be blank'
+  },
+  category: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Location cannot be blank'
+  },
+  questions: [QuestionSchema]
 });
 
-mongoose.model('HireInterviewQuestion', QuestionSchema);
+mongoose.model('Interview', InterviewSchema);
+mongoose.model('Question', QuestionSchema);

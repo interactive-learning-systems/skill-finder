@@ -8,7 +8,7 @@
       $httpBackend,
       $state,
       Authentication,
-      HiresService,
+      HireInterviewInfoService,
       mockHire;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
@@ -36,7 +36,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _HiresService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _HireInterviewInfoService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -44,10 +44,10 @@
       $httpBackend = _$httpBackend_;
       $state = _$state_;
       Authentication = _Authentication_;
-      HiresService = _HiresService_;
+      HireInterviewInfoService = _HireInterviewInfoService_;
 
       // create mock hire
-      mockHire = new HiresService({
+      mockHire = new HireInterviewInfoService({
         _id: '525a8422f6d0f87f0e407a33',
         title: 'An Hire about MEAN',
         content: 'MEAN rocks!'
@@ -73,7 +73,7 @@
 
       beforeEach(function () {
         // Create a sample hire object
-        sampleHirePostData = new HiresService({
+        sampleHirePostData = new HireInterviewInfoService({
           title: 'An Hire about MEAN',
           content: 'MEAN rocks!'
         });
@@ -81,7 +81,7 @@
         $scope.vm.hire = sampleHirePostData;
       });
 
-      it('should send a POST request with the form input values and then locate to new object URL', inject(function (HiresService) {
+      it('should send a POST request with the form input values and then locate to new object URL', inject(function (HireInterviewInfoService) {
         // Set POST response
         $httpBackend.expectPOST('api/hires', sampleHirePostData).respond(mockHire);
 
@@ -114,7 +114,7 @@
         $scope.vm.hire = mockHire;
       });
 
-      it('should update a valid hire', inject(function (HiresService) {
+      it('should update a valid hire', inject(function (HireInterviewInfoService) {
         // Set PUT response
         $httpBackend.expectPUT(/api\/hires\/([0-9a-fA-F]{24})$/).respond();
 
@@ -128,7 +128,7 @@
         });
       }));
 
-      it('should set $scope.vm.error if error', inject(function (HiresService) {
+      it('should set $scope.vm.error if error', inject(function (HireInterviewInfoService) {
         var errorMessage = 'error';
         $httpBackend.expectPUT(/api\/hires\/([0-9a-fA-F]{24})$/).respond(400, {
           message: errorMessage

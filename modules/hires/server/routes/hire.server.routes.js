@@ -1,23 +1,34 @@
 'use strict';
 
 /**
- * Module dependencies
- */
+* Module dependencies
+*/
 var hiresPolicy = require('../policies/hires.server.policy'),
-  hires = require('../controllers/hires.server.controller');
+  interviews = require('../controllers/interview.server.controller'),
+  question = require('../controllers/question.server.controller');
 
 module.exports = function (app) {
-  // Hires collection routes
-  app.route('/api/hires').all(hiresPolicy.isAllowed)
-    .get(hires.list)
-    .post(hires.create);
+  app.route('/api/hires/interview').all(hiresPolicy.isAllowed)
+  .get(interviews.list)
+  .post(interviews.create);
 
-  // Single hire routes
-  app.route('/api/hires/:hireId').all(hiresPolicy.isAllowed)
-    .get(hires.read)
-    .put(hires.update)
-    .delete(hires.delete);
+  app.route('/api/hires/interview/:interviewId').all(hiresPolicy.isAllowed)
+  .get(interviews.read)
+  .put(interviews.update)
+  .delete(interviews.delete);
 
-  // Finish by binding the hire middleware
-  app.param('hireId', hires.hireByID);
+  app.param('interview', interviews.interviewByID);
+
+  app.route('/api/hires/question').all(hiresPolicy.isAllowed)
+  .get(question.list)
+  .post(question.create);
+
+  app.route('/api/hires/question/:questionId').all(hiresPolicy.isAllowed)
+  .get(question.read)
+  .put(question.update)
+  .delete(question.delete);
+
+  app.param('question', question.questionByID);
+
+
 };

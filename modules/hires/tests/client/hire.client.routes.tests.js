@@ -4,7 +4,7 @@
   describe('Hires Route Tests', function () {
     // Initialize global variables
     var $scope,
-      HiresService;
+      HireInterviewInfoService;
 
     // We can start by loading the main application module
     beforeEach(module(ApplicationConfiguration.applicationModuleName));
@@ -12,10 +12,10 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($rootScope, _HiresService_) {
+    beforeEach(inject(function ($rootScope, _HireInterviewInfoService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
-      HiresService = _HiresService_;
+      HireInterviewInfoService = _HireInterviewInfoService_;
     }));
 
     describe('Route Config', function () {
@@ -67,7 +67,7 @@
           $templateCache.put('modules/hires/client/views/view-hire.client.view.html', '');
 
           // create mock hire
-          mockHire = new HiresService({
+          mockHire = new HireInterviewInfoService({
             _id: '525a8422f6d0f87f0e407a33',
             title: 'An Hire about MEAN',
             content: 'MEAN rocks!'
@@ -118,7 +118,7 @@
           $templateCache.put('modules/hires/client/views/form-hire.client.view.html', '');
 
           // create mock hire
-          mockHire = new HiresService();
+          mockHire = new HireInterviewInfoService();
 
           // Initialize Controller
           HiresController = $controller('HiresController as vm', {
@@ -164,7 +164,7 @@
           $templateCache.put('modules/hires/client/views/form-hire.client.view.html', '');
 
           // create mock hire
-          mockHire = new HiresService({
+          mockHire = new HireInterviewInfoService({
             _id: '525a8422f6d0f87f0e407a33',
             title: 'An Hire about MEAN',
             content: 'MEAN rocks!'

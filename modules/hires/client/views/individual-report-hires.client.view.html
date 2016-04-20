@@ -1,0 +1,71 @@
+<section class="content-header">
+  <h1 style="color:gray">
+    SkillFinderQ Hiring Module
+  </h1>
+</section>
+
+
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <div class="box-title box-header with-border" style="width:100%">
+      <h3 class="box-title" style="width:100%"></h3>
+      <span class="pull-left"><b>{{ vm.interview.candidate }}</b></span>
+      <span class="pull-right"><b>{{ vm.interview.interviewer }}</b></span>
+    </div>
+    <div class="box-tools"></div>
+  </div>
+  <div class="box-body table-responsive no-padding">
+    <table id="attitude-table" class="table table-fixed table-striped">
+      <tbody>
+        <tr>
+          <td>Section</td>
+          <td>Question</td>
+          <td>Rating</td>
+        </tr>
+
+        <tr ng-repeat-start="module in vm.modules">
+          <tr>
+            <td>{{module.module}}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr ng-repeat-start="unit in module.value">
+            <tr>
+              <td>&nbsp;&nbsp;{{unit.unit}}</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr ng-repeat-start="chapter in unit.value">
+              <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;{{chapter.chapter}}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr ng-repeat-start="section in chapter.value">
+                <tr ng-repeat-start="question in vm.getQuestions({module: module, unit: unit, chapter:chapter, section: section})">
+                  <tr>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{section.section}}</td>
+                    <td>{{question.question}}</td>
+                    <td>
+                      <span>
+                        <input ng-show="question.rating.ratingType==='trueFalse'" type="checkbox" ng-model="question.rating.trueFalse" ng-checked="question.rating.trueFalse" disabled="true" ng-indeterminate="true">
+                        <uib-rating ng-show="question.rating.ratingType==='rating4'" ng-model="question.rating.value" max="4" data-readonly="true" aria-labelledby="default-rating">ddd</uib-rating>
+                        <uib-rating ng-show="question.rating.ratingType==='rating5'" ng-model="question.rating.value" max="5" data-readonly="true" aria-labelledby="default-rating"></uib-rating>
+                        <input ng-show="question.rating.ratingType==='xofy'" type="text" size="2" ng-model="question.rating.value" readonly="true" ><span ng-show="question.rating.ratingType==='xofy'"> of </span><input ng-show="question.rating.ratingType==='xofy'" type="text" size="2" ng-model="question.rating.max" readonly="true" >
+                      </span>
+                    </td>
+                  </tr>
+                </tr >
+                <tr ng-repeat-end></tr>
+              </tr >
+              <tr ng-repeat-end></tr>
+            </tr>
+            <tr ng-repeat-end></tr>
+          </tr>
+          <tr ng-repeat-end></tr>
+        </tr>
+        <tr ng-repeat-end></tr>
+      </tbody>
+    </table>
+  </div>
+</div>

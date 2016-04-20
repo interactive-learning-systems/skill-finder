@@ -3,9 +3,9 @@
   <div class="col-md-12">
     <div class="box box-primary">
       <div class="box-body" >
-        <div class="progress-group col-md-3" ng-repeat="unit in vm.getUnitsForModule('Hires')">
+        <div class="progress-group col-md-3" ng-repeat="unit in vm.getUnits()">
           <span class="progress-text">{{unit.unit}}</span>
-          <span class="progress-number"> {{ (unitQuestions | completed).length}} / {{(unitQuestions = (vm.questions | section: {module:'Hires', unit: unit.unit} )).length}}</span>
+          <span class="progress-number"> {{ (unitQuestions | completed).length}} / {{(unitQuestions = (vm.interview.questions | section: {module:'Hires', unit: unit.unit} )).length}}</span>
           <uib-progressbar max="unitQuestions.length" value="(unitQuestions | completed).length">
             <span style="color:white; white-space:nowrap;">{{ (unitQuestions | completed).length}}  / {{unitQuestions.length}}</span>
           </uib-progressbar>
@@ -19,7 +19,12 @@
   <div class="col-md-12">
       <div class="box">
         <div class="box-header">
-          <div id="topic" class="box-title box-header with-border"><h3 class="box-title"><b><span>{{vm.currentSection.unit}}</b> - {{vm.currentSection.section}}</span> <span class="pull-right">Questions for the candidate</span></h3></div>
+          <div id="topic" class="box-title box-header with-border" style="width:100%">
+            <h3 class="box-title" style="width:100%">
+              <b><span>{{vm.currentSection.chapter}}</b> - {{vm.currentSection.section}}</span>
+              <span class="pull-right">Questions for the candidate</span>
+            </h3>
+          </div>
           <div class="box-tools"></div>
         </div>
         <div class="box-body table-responsive no-padding">
@@ -28,11 +33,11 @@
               <tr id="attitude-header">
                 <th class="text-center" width="1%"></th><th>Question</th> <th class="text-center">Rating</th>
               </tr>
-              <tr ng-repeat="question in filtered = (vm.questions | section: vm.currentSection)">
+              <tr ng-repeat="question in filtered = (vm.interview.questions | section: vm.currentSection)">
                 <td align="center"></td>
                 <td>
                   {{question.question}}
-                  <a href="#" data-size="medium" data-toggle="popover" data-trigger="hover" title="" data-content="question.hint" data-original-title="Information"><i class="fa fa-question-circle fa-lg"></i></a>
+                  <a href="#" data-size="medium" data-toggle="popover" data-trigger="hover" title="{{question.hint}}" data-content="question.hint" data-original-title="Information"><i class="fa fa-question-circle fa-lg"></i></a>
                 </td>
                 <td align="center">
                   <span>
@@ -45,8 +50,8 @@
               </tr>
               <tr>
                 <td style="vertical-align:middle"><button ng-disabled="!vm.newQuestion" ng-click="vm.addRow(); " class="btn btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Question"><i class="fa fa-plus"></i></button></td>
-                <td colspan="2"><input type="text" name="question" data-ng-model="vm.newQuestion" class="form-control" cols="30" rows="1" placeholder="Enter your question"></textarea>
-                                <input type="text" name="questionHint" data-ng-model="vm.newQuestionHint" class="form-control" cols="30" rows="1" placeholder="Enter help information about your question"></textarea></td>
+                <td colspan="2"><input type="text" name="question" data-ng-model="vm.newQuestion" class="form-control" cols="30" rows="1" placeholder="Enter your question"></input>
+                                <input type="text" name="questionHint" data-ng-model="vm.newQuestionHint" class="form-control" cols="30" rows="1" placeholder="Enter help information about your question"></input></td>
               </tr>
             </tbody>
           </table>
@@ -55,5 +60,5 @@
     </div>
   </div>
 </section>
-<button ng-disabled="vm.previousSection == null" ng-click="vm.back()" class="btn" data-toggle="tooltip" data-placement="top" title="back" data-original-title="Back">Back</button>
-<button ng-disabled="vm.nextSection == null" ng-click="vm.next()" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="next" data-original-title="Next">Next: {{vm.nextSection.unit}}</b> - {{vm.nextSection.section}} >></button>
+<button ng-click="vm.back()" class="btn" data-toggle="tooltip" data-placement="top" title="back" data-original-title="Back">Back</button>
+<button ng-click="vm.next()" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="next" data-original-title="Next">Next: {{vm.nextSection.unit}}</b> {{vm.nextSection.section}} >></button>

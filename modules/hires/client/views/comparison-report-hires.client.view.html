@@ -1,0 +1,150 @@
+<section class="content-header">
+  <h1 style="color:gray">
+    SkillFinderQ Hiring Module
+  </h1>
+</section>
+
+
+<section class="content" ng-controller="DatePickerController as dp">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Candidate Information</h3>
+    </div>
+    <div class="box-body">
+      <div class="col-xs-6 form-group">
+        <label for="interviewerinput">Start</label>
+        <div class="form-group has-success has-feedback">
+          <div class="input-group">
+            <input type="date" class="form-control"
+            datepicker-popup="mediumDate"
+            is-open="dp.valuationDatePickerIsOpen"
+            ng-click="dp.valuationDatePickerOpen()"
+            ng-model="dp.startDate" />
+          </div>
+          <span id="inputGroupSuccess3Status" class="sr-only">(success)</span>
+        </div>
+      </div>
+
+      <div class="col-xs-6 form-group">
+        <label for="interviewerinput">End</label>
+        <div class="form-group has-success has-feedback">
+          <div class="input-group">
+            <input type="date" class="form-control"
+            datepicker-popup="mediumDate"
+            is-open="dp.valuationDatePickerIsOpen"
+            ng-click="dp.valuationDatePickerOpen()"
+            ng-model="dp.endDate" />
+          </div>
+          <span id="inputGroupSuccess3Status" class="sr-only">(success)</span>
+        </div>
+      </div>
+
+      <div class="col-xs-6 form-group">
+        <label for "locationinput">Position</label>
+        <select id="locationinput" class="form-control select2" ng-model="vm.report.position" ng-options="item for item in vm.positions"></select>
+      </div>
+
+      <div class="col-xs-6 form-group">
+        <label for "locationinput">Service Category</label>
+        <select id="locationinput" class="form-control select2" ng-model="vm.report.category" ng-options="item for item in vm.categories"></select>
+      </div>
+
+      <div class="col-xs-6 form-group">
+        <br>
+        <div id="alert_placeholder"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <div id="topic" class="box-title box-header with-border" style="width:100%">
+        <h3 class="box-title" style="width:100%">
+          <span><b>{{vm.report.position}}</b></span><span ng-show="vm.report.position.length>0 && vm.report.category.length>0" >, </span><span><b>{{vm.report.category}}</b></span>
+          <span class="pull-right">Dates: <em>{{dp.startDate | date:'longDate' }} - {{dp.endDate | date:'longDate' }}</em></span>
+        </div>
+        <div class="box-tools"></div>
+      </div>
+      <div class="box-body table-responsive no-padding">
+        <table id="attitude-table" class="table table-fixed table-striped">
+          <tbody>
+            <tr>
+              <td></td>
+              <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                <a ui-sref="hires.candidateReport({ id: interview._id })">{{ interview.candidate }}</a>
+              </td>
+            </tr>
+
+            <tr ng-repeat-start="module in vm.modules">
+              <tr>
+                <td>{{module.module}}</td>
+                <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                  {{vm.getCompletedQuestions(interview, {module: module})}}
+                </td>
+              </tr>
+              <tr ng-repeat-start="unit in module.value">
+                <tr>
+                  <td>&nbsp;&nbsp;{{unit.unit}}</td>
+                  <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                    {{vm.getCompletedQuestions(interview, {module: module, unit: unit})}}
+                  </td>
+                </tr>
+                <tr ng-repeat-start="chapter in unit.value">
+                  <tr>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;{{chapter.chapter}}</td>
+                    <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                      {{vm.getCompletedQuestions(interview, {module: module, unit: unit, chapter: chapter})}}
+                    </td>
+                  </tr>
+                  <tr ng-repeat-start="section in chapter.value">
+                    <tr>
+                      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{section.section}}</td>
+                      <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                        {{vm.getCompletedQuestions(interview, {module: module, unit: unit, chapter: chapter, section: section})}}
+                      </td>
+                    </tr>
+                  </tr >
+                  <tr ng-repeat-end></tr>
+                </tr>
+                <tr ng-repeat-end></tr>
+              </tr>
+              <tr ng-repeat-end></tr>
+            </tr>
+            <tr ng-repeat-end></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <div>
+      <pre>Selected date is: <em>{{dp.valuationDate | date:'fullDate' }}</em>
+      </pre>
+      <div class="row">
+        <div class="col-md-3">
+          <p class="input-group">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default"
+              ng-click="dp.valuationDatePickerOpen()">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+          <input type="text" class="form-control"
+          datepicker-popup="mediumDate"
+          is-open="dp.valuationDatePickerIsOpen"
+          ng-click="dp.valuationDatePickerOpen()"
+          ng-model="dp.valuationDate" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default"
+            ng-click="dp.valuationDatePickerOpen($event)">
+            <i class="glyphicon glyphicon-calendar"></i>
+          </button>
+        </span>
+      </p>
+    </div>
+  </div>
+  <ul>
+    <li ng-repeat="open in dp.opens">{{open}}</li>
+  </ul>
+</div>
