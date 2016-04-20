@@ -18,7 +18,15 @@
     "rdash-ui": "1.0.*",
     "angular-cookies": "~1.2.21",
     "font-awesome": "~4.1.0",
-    "satellizer": "~0.11.3"
+    "satellizer": "~0.11.3",
+    "skins": "https://github.com/interactive-learning-systems/skins.git",
+    "school": "https://github.com/interactive-learning-systems/school.git"
+  },
+  "resolutions": {
+    "angular": "~1.5.0",
+    "angular-bootstrap": "~1.0.3",
+    "font-awesome": "~4.5.0",
+    "angular-cookies": "~1.5.0"
   },
   "overrides": {
     "bootstrap": {
@@ -28,5 +36,9 @@
         "less/bootstrap.less"
       ]
     }
+  },
+  "devDependencies": {
+    "skins": "https://github.com/interactive-learning-systems/skins.git",
+    "school": "https://github.com/interactive-learning-systems/school.git"
   }
 }
