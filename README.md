@@ -218,6 +218,11 @@ $ sudo pip install docker-compose
 $ docker-compose up
 ```
 
+* For production, use the following
+```bash
+$ docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d
+```
+
 * Local development and testing with just Docker:
 ```bash
 $ docker build -t mean .
