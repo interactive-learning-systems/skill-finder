@@ -205,6 +205,13 @@ gulp test:client
 gulp test:e2e
 ```
 
+
+## Updating the code on the production server* git clone
+```bash
+ https://github.com/interactive-learning-systems/skill-finder.git
+ ```
+
+
 ## Development and deployment With Docker on AWS
 * Setup Node and Mongo nodes for [AWS](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html)
 *  Install [Docker](https://docs.docker.com/installation/#installation)
@@ -216,6 +223,12 @@ gulp test:e2e
 $ sudo apt-get -y install python-pip
 $ sudo pip install docker-compose
 $ docker-compose up
+```
+
+* Updating the docker images
+```bash
+$ docker-compose build web
+$ docker-compose up --no-deps -d web
 ```
 
 * For production, use the following
