@@ -10,27 +10,38 @@
   <div class="box box-primary">
     <div class="box-header with-border">
       <h3 class="box-title">Basic Information</h3>
-    </div><!-- /.box-header -->
+    </div>
+
+    <form name="form" ng-class="{true: 'error'}[submitted && form.locationinput.$invalid]">
       <div class="box-body">
         <div class="col-xs-6 form-group">
           <label for="interviewerinput">Interviewer</label>
-          <input id="interviewerinput" type="text" class="form-control" data-ng-model="vm.interview.interviewer" placeholder="Enter name (First Last)">
+          <input id="interviewerinput" required type="text" class="form-control" data-ng-model="vm.interview.interviewer" placeholder="Enter name (First Last)">
         </div>
         <div class="col-xs-6 form-group">
           <label for="candidateinput">Candidate</label>
-          <input id="candidateinput" type="text" class="form-control" data-ng-model="vm.interview.candidate" placeholder="Enter name (First Last)">
+          <input id="candidateinput" required type="text" class="form-control" data-ng-model="vm.interview.candidate" placeholder="Enter name (First Last)">
         </div>
         <div class="col-xs-6 form-group">
-          <label for "locationinput">Location</label>
-          <select id="locationinput" class="form-control select2" ng-model="vm.interview.location" ng-options="item for item in vm.locations"></select>
+          <label for="locationinput">Location</label>
+          <select id="locationinput" required class="form-control select2" ng-model="vm.interview.location" ng-options="item for item in vm.locations">
+            <option></option>
+          </select>
+          <span class="help-inline" ng-show="form.locationinput.$error.required">Required</span>
         </div>
         <div class="col-xs-6 form-group">
           <label for="positioninput">Position to Hire</label>
-          <select id="positioninput" class="form-control select2" ng-model="vm.interview.position" ng-options="item for item in vm.positions"></select>
+          <select id="positioninput" required class="form-control select2" ng-model="vm.interview.position" ng-options="item for item in vm.positions">
+            <option></option>
+          </select>
+          <span class="help-inline" ng-show="submitted && form.positioninput.$error.required">Required</span>
         </div>
         <div class="col-xs-6 form-group">
           <label for="categoryinput">Service Category</label>
-          <select id="categoryinput" class="form-control select2" ng-model="vm.interview.category" ng-options="item for item in vm.categories"></select>
+          <select id="categoryinput" required class="form-control select2" ng-model="vm.interview.category" ng-options="item for item in vm.categories">
+            <option></option>
+          </select>
+          <span class="help-inline" ng-show="submitted && form.categoryinput.$error.required">Required</span>
         </div>
 
         <div class="col-xs-6 form-group">
@@ -38,10 +49,11 @@
           <div id="alert_placeholder"></div>
         </div>
 
-        <button ng-click="vm.next()" class="btn btn-primary pull-right" data-toggle="tooltip" data-placement="top" title="next" data-original-title="Next">Next >></button>
+        <button ng-click="vm.next()" class="btn btn-primary pull-right" data-toggle="tooltip" data-placement="top" title="next" ng-click="submitted=true" data-original-title="Next">Next >></button>
 
       </div>
-    </div>
+    </form name="form">
+  </div>
 
 
-  </section>
+</section>
