@@ -55,7 +55,7 @@
     });
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'hires.locations', {
-      title: 'Previous',
+      title: 'Previous Work',
       state: 'hires.location_1',
       class: 'fa-circle-o',
       position: 1,
@@ -63,7 +63,7 @@
     });
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'hires.locations', {
-      title: 'Current',
+      title: 'Current Work',
       state: 'hires.location_2',
       class: 'fa-circle-o',
       position: 2,
