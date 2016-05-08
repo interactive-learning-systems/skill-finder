@@ -25,6 +25,9 @@
         if (interested.endDate && new Date(interview.created).getTime() > new Date(interested.endDate).getTime()) {
           stillInterested = false;
         }
+        if (interested.candidate && !interview.candidate.toLowerCase().startsWith(interested.candidate.toLowerCase())) {
+          stillInterested = false;
+        }
 
         if (stillInterested) {
           tempInterviews.push(interview);

@@ -12,10 +12,10 @@
     </div>
     <div class="box-body">
       <div class="col-xs-6 form-group">
-        <label for="interviewerinput">Start</label>
+        <label for="startDate">Start</label>
         <div class="form-group has-success has-feedback">
           <div class="input-group">
-            <input type="date" class="form-control"
+            <input id="startDate" type="date" class="form-control"
             datepicker-popup="mediumDate"
             is-open="dp.valuationDatePickerIsOpen"
             ng-click="dp.valuationDatePickerOpen()"
@@ -26,10 +26,10 @@
       </div>
 
       <div class="col-xs-6 form-group">
-        <label for="interviewerinput">End</label>
+        <label for="endDate">End</label>
         <div class="form-group has-success has-feedback">
           <div class="input-group">
-            <input type="date" class="form-control"
+            <input id="endDate" type="date" class="form-control"
             datepicker-popup="mediumDate"
             is-open="dp.valuationDatePickerIsOpen"
             ng-click="dp.valuationDatePickerOpen()"
@@ -50,8 +50,8 @@
       </div>
 
       <div class="col-xs-6 form-group">
-        <br>
-        <div id="alert_placeholder"></div>
+        <label for="candidateinput">Candidate</label>
+        <input id="candidateinput" required type="text" class="form-control" data-ng-model="vm.report.candidate" placeholder="Enter name (First Last)">
       </div>
 
     </div>
@@ -73,7 +73,7 @@
         <tbody>
           <tr>
             <td></td>
-            <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+            <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate, candidate: vm.report.candidate})">
               <a ng-cloak href=""ui-sref="hires.candidateReport({ id: interview._id })">{{ interview.candidate }}</a>
             </td>
           </tr>
@@ -81,28 +81,28 @@
           <tr ng-repeat-start="module in vm.modules">
             <tr>
               <td ng-cloak>{{module.module}}</td>
-              <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+              <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate, candidate: vm.report.candidate})">
                 {{vm.getCompletedQuestions(interview, {module: module})}}
               </td>
             </tr>
             <tr ng-repeat-start="unit in module.value">
               <tr>
                 <td ng-cloak>&nbsp;&nbsp;{{unit.unit}}</td>
-                <td  ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                <td  ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate, candidate: vm.report.candidate})">
                   {{vm.getCompletedQuestions(interview, {module: module, unit: unit})}}
                 </td>
               </tr>
               <tr ng-repeat-start="chapter in unit.value">
                 <tr>
                   <td ng-cloak>&nbsp;&nbsp;&nbsp;&nbsp;{{chapter.chapter}}</td>
-                  <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                  <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate, candidate: vm.report.candidate})">
                     {{vm.getCompletedQuestions(interview, {module: module, unit: unit, chapter: chapter})}}
                   </td>
                 </tr>
                 <tr ng-repeat-start="section in chapter.value">
                   <tr>
                     <td ng-cloak>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{section.section}}</td>
-                    <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                    <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate, candidate: vm.report.candidate})">
                       {{vm.getCompletedQuestions(interview, {module: module, unit: unit, chapter: chapter, section: section})}}
                     </td>
                   </tr>
