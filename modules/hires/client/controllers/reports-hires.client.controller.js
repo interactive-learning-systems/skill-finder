@@ -175,6 +175,31 @@
       };
     }
 
+    vm.isQuestionInSection = function(question, section) {
+      var isInSection = true;
+      if (section.module) {
+        if (question.module.localeCompare(section.module.module) !== 0) {
+          isInSection = false;
+        }
+      }
+      if (section.unit) {
+        if (question.unit.localeCompare(section.unit.unit) !== 0) {
+          isInSection = false;
+        }
+      }
+      if (section.chapter) {
+        if (question.chapter.localeCompare(section.chapter.chapter) !== 0) {
+          isInSection = false;
+        }
+      }
+      if (section.section) {
+        if (question.section.localeCompare(section.section.section) !== 0) {
+          isInSection = false;
+        }
+      }
+      return isInSection;
+    };
+
     vm.getCompletedQuestions = function(interview, section) {
       var sum = 0;
       if (interview) {
@@ -182,29 +207,8 @@
 
         if (questions) {
           for (var i = 0; i < questions.length; i++) {
-            var isInSection = true;
             var q = questions[i];
-            if (section.module) {
-              if (q.module.localeCompare(section.module.module) !== 0) {
-                isInSection = false;
-              }
-            }
-            if (section.unit) {
-              if (q.unit.localeCompare(section.unit.unit) !== 0) {
-                isInSection = false;
-              }
-            }
-            if (section.chapter) {
-              if (q.chapter.localeCompare(section.chapter.chapter) !== 0) {
-                isInSection = false;
-              }
-            }
-            if (section.section) {
-              if (q.section.localeCompare(section.section.section) !== 0) {
-                isInSection = false;
-              }
-            }
-            if (isInSection) {
+            if (vm.isQuestionInSection(q, section)) {
               if (q.rating.ratingType.localeCompare('trueFalse') === 0) {
                 if (q.rating.trueFalse) {
                   sum += 1;
@@ -217,6 +221,31 @@
         }
       }
       return sum;
+    };
+
+    vm.getNormalizedScore = function(interview, section) {
+      var sum = 0;
+      var total = 0;
+      if (interview) {
+        var questions = interview.questions;
+
+        if (questions) {
+          for (var i = 0; i < questions.length; i++) {
+            var q = questions[i];
+
+
+            if (vm.isQuestionInSection(q, section)) {
+              total += q.rating.max;
+              if (q.rating.ratingType.localeCompare('trueFalse') === 0) {
+                sum += (q.rating.trueFalse === true) ? 1 : 0;
+              } else {
+                sum = sum + q.rating.value;
+              }
+            }
+          }
+        }
+      }
+      return (total === 0) ? 0 : sum / total;
     };
 
     // Save Interview

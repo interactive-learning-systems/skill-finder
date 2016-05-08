@@ -16,6 +16,23 @@ exports.create = function (req, res) {
   var question = new Question(req.body);
   question.user = req.user;
 
+  /* Adjust data */
+  switch (question.rating.ratingType) {
+    case "rating4":
+      question.rating.max = 4;
+      break;
+    case "rating5":
+      question.rating.max = 5;
+      break;
+    case "trueFalse":
+      question.rating.max = 1;
+      break;
+    case "xofy":
+      break;
+    default:
+      question.rating.max = 1;
+  }
+
   question.save(function (err) {
     if (err) {
       return res.status(400).send({

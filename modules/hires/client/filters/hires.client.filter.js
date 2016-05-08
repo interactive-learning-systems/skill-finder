@@ -3,10 +3,17 @@
 
   angular
   .module('hires.filters')
+  .filter('percentage', PercentageFilter)
   .filter('interested', InterestedInterviewFilter)
   .filter('section', HiresSectionFilter)
   .filter('completed', CompletedFilter);
 
+
+  function PercentageFilter() {
+    return function (input, decimals) {
+      return Math.floor(input * 100, decimals) + '%';
+    };
+  }
 
   function InterestedInterviewFilter() {
     return function(interviews, interested) {

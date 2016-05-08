@@ -82,28 +82,28 @@
             <tr>
               <td ng-cloak>{{module.module}}</td>
               <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate, candidate: vm.report.candidate})">
-                {{vm.getCompletedQuestions(interview, {module: module})}}
+                {{vm.getNormalizedScore(interview, {module: module}) | percentage:2}}
               </td>
             </tr>
             <tr ng-repeat-start="unit in module.value">
               <tr>
                 <td ng-cloak>&nbsp;&nbsp;{{unit.unit}}</td>
                 <td  ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate, candidate: vm.report.candidate})">
-                  {{vm.getCompletedQuestions(interview, {module: module, unit: unit})}}
+                  {{vm.getNormalizedScore(interview, {module: module, unit: unit}) | percentage:2}}
                 </td>
               </tr>
               <tr ng-repeat-start="chapter in unit.value">
                 <tr>
                   <td ng-cloak>&nbsp;&nbsp;&nbsp;&nbsp;{{chapter.chapter}}</td>
                   <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate, candidate: vm.report.candidate})">
-                    {{vm.getCompletedQuestions(interview, {module: module, unit: unit, chapter: chapter})}}
+                    {{vm.getNormalizedScore(interview, {module: module, unit: unit, chapter: chapter}) | percentage:2}}
                   </td>
                 </tr>
                 <tr ng-repeat-start="section in chapter.value">
                   <tr>
                     <td ng-cloak>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{section.section}}</td>
                     <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate, candidate: vm.report.candidate})">
-                      {{vm.getCompletedQuestions(interview, {module: module, unit: unit, chapter: chapter, section: section})}}
+                      {{vm.getNormalizedScore(interview, {module: module, unit: unit, chapter: chapter, section: section}) | percentage:2}}
                     </td>
                   </tr>
                 </tr >
