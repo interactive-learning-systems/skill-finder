@@ -145,7 +145,7 @@
       var question = {
         question: vm.newQuestion, hint: vm.newQuestionHint,
         module: vm.currentSection.module, unit: vm.currentSection.unit, chapter: vm.currentSection.chapter, section: vm.currentSection.section,
-        rating: { ratingType: vm.currentQuestionType() }
+        rating: vm.currentRatingType()
       };
       vm.interview.questions.push(question);
       QuestionManager.setQuestions(question).save();
@@ -153,11 +153,20 @@
       vm.newQuestionHint = '';
     };
 
-    vm.currentQuestionType = function() {
+    vm.currentRatingType = function() {
       switch (vm.currentSection.unit) {
-        case 'Checks': return 'trueFalse';
-        case 'Tests': return 'xofy';
-        default: return 'rating4';
+        case 'Checks': return {
+          ratingType: 'trueFalse',
+          max: 1
+        };
+        case 'Tests': return {
+          ratingType: 'xofy',
+          max: 1
+        };
+        default: return {
+          ratingType: 'rating4',
+          max: 4
+        };
       }
     };
 

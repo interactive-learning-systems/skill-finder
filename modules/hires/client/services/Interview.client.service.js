@@ -24,29 +24,6 @@
       });
     }
 
-    /*
-    function interview(interviewData) {
-      this.setData({
-        interviewer: "",
-        candidate: "",
-        location: "",
-        category: "",
-        questions: QuestionManager.loadAllQuestions().then(function(questionTemplates) {
-          this.setQuestions(questionTemplates);
-          console.log("QUESTION TEMPLATES");
-          console.log(questionTemplates);
-          return questionTemplates;
-        })
-      });
-      console.log("QUESTION TEMPLATES2");
-      console.log(this);
-
-      if (interviewData) {
-        this.setData(interviewData);
-      }
-    }
-    */
-
     interview.prototype = {
       save: function(success, error) {
         return $http.post('api/hires/interview/', this);
