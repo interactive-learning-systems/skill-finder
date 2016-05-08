@@ -32,7 +32,7 @@
         if (interested.endDate && new Date(interview.created).getTime() > new Date(interested.endDate).getTime()) {
           stillInterested = false;
         }
-        if (interested.candidate && !interview.candidate.toLowerCase().startsWith(interested.candidate.toLowerCase())) {
+        if (interested.candidate && interview.candidate.toLowerCase().indexOf(interested.candidate.toLowerCase()) < 0) {
           stillInterested = false;
         }
 
