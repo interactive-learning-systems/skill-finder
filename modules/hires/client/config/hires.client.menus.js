@@ -85,10 +85,26 @@
     });
 
     menuService.addSubMenuItem('topbar', 'hires', {
+      title: 'Reports',
+      state: 'hires.reports',
+      class: 'fa-line-chart',
+      type: 'dropdown',
+      position: 5,
+      roles: ['user']
+    });
+    menuService.addSubMenuItem('topbar', 'hires.reports', {
       title: 'Candidate Report',
+      state: 'hires.candidateReport',
+      class: 'fa-circle-o',
+      position: 1,
+      roles: ['user']
+    });
+
+    menuService.addSubMenuItem('topbar', 'hires.reports', {
+      title: 'Comparison Report',
       state: 'hires.comparisonReport',
       class: 'fa-circle-o',
-      position: 5,
+      position: 2,
       roles: ['user']
     });
 

@@ -4,13 +4,12 @@
   </h1>
 </section>
 
-
-<div class="box box-primary">
+<div class="box box-primary"  ng-controller="HiresIndividualReportController as vm">
   <div class="box-header with-border">
     <div class="box-title box-header with-border" style="width:100%">
       <h3 class="box-title" style="width:100%"></h3>
-      <span class="pull-left"><b>{{ vm.interview.candidate }}</b></span>
-      <span class="pull-right"><b>{{ vm.interview.interviewer }}</b></span>
+      <span class="pull-left"><b>Candidate: {{ vm.interview.candidate }}</b></span>
+      <span class="pull-right"><b>Interviewer: {{ vm.interview.interviewer }}</b></span>
     </div>
     <div class="box-tools"></div>
   </div>

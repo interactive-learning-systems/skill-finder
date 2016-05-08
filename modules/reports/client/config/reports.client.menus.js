@@ -17,6 +17,7 @@
       roles: ['*']
     });
 
+/*
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'reports', {
       title: 'Candidate Comparisons',
@@ -52,6 +53,6 @@
       position: 4,
       roles: ['user']
     });
-
+*/
   }
 }());

@@ -12,6 +12,7 @@
 
     vm.authentication = Authentication;
     vm.error = null;
+    vm.interview = InterviewManager.retrieveCurrentInterview();
 
     vm.modules = [
       {
