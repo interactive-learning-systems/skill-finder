@@ -1,20 +1,35 @@
 <ul class="sidebar-menu"  uib-collapse="isSidebarColl"  ng-controller="HeaderController as vm">
   <li ng-repeat="item in vm.menu.items | orderBy: 'position'" ng-if="item.shouldRender(vm.authentication.user);" ng-switch="item.type" class="treeview" uib-dropdown="true" ng-show="vm.authentication.user">
-    <a href="#" ng-click="vm.isCollapsed[item.title] = !vm.isCollapsed[item.title]">
+
+    <a href="#" ng-switch-when="dropdown" ng-click="vm.isCollapsed[item.title] = !vm.isCollapsed[item.title]">
       <i class="fa {{::item.class}}"></i> <span>{{::item.title}}</span>
       <i class="fa fa-angle-left pull-right"></i>
     </a>
+    <a href="#" ng-switch-default type="button" ui-sref="{{item.state}}">
+      <i class="fa {{::item.class}}"></i> <span>{{::item.title}}</span>
+    </a>
+
     <ul class="treeview-menu" uib-collapse="vm.isCollapsed[item.title]">
       <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-switch="subitem.type" >
-        <a href="#" ng-click="vm.isCollapsed[subitem.title] = !vm.isCollapsed[subitem.title]">
+
+        <a href="#" ng-switch-when="dropdown" ng-click="vm.isCollapsed[subitem.title] = !vm.isCollapsed[subitem.title]">
           <i class="fa {{::subitem.class}}"></i>{{::subitem.title}}
           <i class="fa fa-angle-left pull-right"></i>
         </a>
+        <a href="#" ng-switch-default type="button" ui-sref="{{subitem.state}}">
+          <i class="fa {{::subitem.class}}"></i> <span>{{::subitem.title}}</span>
+        </a>
+
         <ul class="treeview-menu" uib-collapse="vm.isCollapsed[subitem.title]">
-          <li ng-repeat="subsubitem in subitem.items | orderBy: 'position'">
-            <a href="#" type="button" ui-sref="{{subsubitem.state}}" >
+          <li ng-repeat="subsubitem in subitem.items | orderBy: 'position'" ng-switch="subsubitem.type" >
+
+            <a href="#" ng-switch-when="dropdown" type="button">
               <i class="fa {{subsubitem.class}}"></i>{{subsubitem.title}}
             </a>
+            <a href="#" ng-switch-default type="button" ui-sref="{{subsubitem.state}}">
+              <i class="fa {{::subsubitem.class}}"></i> <span>{{::subsubitem.title}}</span>
+            </a>
+
           </li>
         </ul>
     </ul>
