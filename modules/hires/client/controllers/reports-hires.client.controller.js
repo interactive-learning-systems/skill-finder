@@ -176,39 +176,43 @@
     }
 
     vm.getCompletedQuestions = function(interview, section) {
-      var questions = interview.questions;
       var sum = 0;
+      if (interview) {
+        var questions = interview.questions;
 
-      for (var i = 0; i < questions.length; i++) {
-        var isInSection = true;
-        var q = questions[i];
-        if (section.module) {
-          if (q.module.localeCompare(section.module.module) !== 0) {
-            isInSection = false;
-          }
-        }
-        if (section.unit) {
-          if (q.unit.localeCompare(section.unit.unit) !== 0) {
-            isInSection = false;
-          }
-        }
-        if (section.chapter) {
-          if (q.chapter.localeCompare(section.chapter.chapter) !== 0) {
-            isInSection = false;
-          }
-        }
-        if (section.section) {
-          if (q.section.localeCompare(section.section.section) !== 0) {
-            isInSection = false;
-          }
-        }
-        if (isInSection) {
-          if (q.rating.ratingType.localeCompare('trueFalse') === 0) {
-            if (q.rating.trueFalse) {
-              sum += 1;
+        if (questions) {
+          for (var i = 0; i < questions.length; i++) {
+            var isInSection = true;
+            var q = questions[i];
+            if (section.module) {
+              if (q.module.localeCompare(section.module.module) !== 0) {
+                isInSection = false;
+              }
             }
-          } else {
-            sum = sum + q.rating.value;
+            if (section.unit) {
+              if (q.unit.localeCompare(section.unit.unit) !== 0) {
+                isInSection = false;
+              }
+            }
+            if (section.chapter) {
+              if (q.chapter.localeCompare(section.chapter.chapter) !== 0) {
+                isInSection = false;
+              }
+            }
+            if (section.section) {
+              if (q.section.localeCompare(section.section.section) !== 0) {
+                isInSection = false;
+              }
+            }
+            if (isInSection) {
+              if (q.rating.ratingType.localeCompare('trueFalse') === 0) {
+                if (q.rating.trueFalse) {
+                  sum += 1;
+                }
+              } else {
+                sum = sum + q.rating.value;
+              }
+            }
           }
         }
       }

@@ -63,88 +63,58 @@
         <h3 class="box-title" style="width:100%">
           <span><b>{{vm.report.position}}</b></span><span ng-show="vm.report.position.length>0 && vm.report.category.length>0" >, </span><span><b>{{vm.report.category}}</b></span>
           <span class="pull-right">Dates: <em>{{dp.startDate | date:'longDate' }} - {{dp.endDate | date:'longDate' }}</em></span>
-        </div>
-        <div class="box-tools"></div>
+        </h3>
       </div>
-      <div class="box-body table-responsive no-padding">
-        <table id="attitude-table" class="table table-fixed table-striped">
-          <tbody>
+      <div class="box-tools"></div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+      <table id="attitude-table" class="table table-fixed table-striped">
+        <tbody>
+          <tr>
+            <td></td>
+            <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+              <a ng-cloak href=""ui-sref="hires.candidateReport({ id: interview._id })">{{ interview.candidate }}</a>
+            </td>
+          </tr>
+
+          <tr ng-repeat-start="module in vm.modules">
             <tr>
-              <td></td>
-              <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
-                <a ui-sref="hires.candidateReport({ id: interview._id })">{{ interview.candidate }}</a>
+              <td ng-cloak>{{module.module}}</td>
+              <td  ng-cloakng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                {{vm.getCompletedQuestions(interview, {module: module})}}
               </td>
             </tr>
-
-            <tr ng-repeat-start="module in vm.modules">
+            <tr ng-repeat-start="unit in module.value">
               <tr>
-                <td>{{module.module}}</td>
-                <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
-                  {{vm.getCompletedQuestions(interview, {module: module})}}
+                <td ng-cloak>&nbsp;&nbsp;{{unit.unit}}</td>
+                <td  ng-cloakng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                  {{vm.getCompletedQuestions(interview, {module: module, unit: unit})}}
                 </td>
               </tr>
-              <tr ng-repeat-start="unit in module.value">
+              <tr ng-repeat-start="chapter in unit.value">
                 <tr>
-                  <td>&nbsp;&nbsp;{{unit.unit}}</td>
-                  <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
-                    {{vm.getCompletedQuestions(interview, {module: module, unit: unit})}}
+                  <td ng-cloak>&nbsp;&nbsp;&nbsp;&nbsp;{{chapter.chapter}}</td>
+                  <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                    {{vm.getCompletedQuestions(interview, {module: module, unit: unit, chapter: chapter})}}
                   </td>
                 </tr>
-                <tr ng-repeat-start="chapter in unit.value">
+                <tr ng-repeat-start="section in chapter.value">
                   <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;{{chapter.chapter}}</td>
-                    <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
-                      {{vm.getCompletedQuestions(interview, {module: module, unit: unit, chapter: chapter})}}
+                    <td ng-cloak>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{section.section}}</td>
+                    <td ng-cloak ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
+                      {{vm.getCompletedQuestions(interview, {module: module, unit: unit, chapter: chapter, section: section})}}
                     </td>
                   </tr>
-                  <tr ng-repeat-start="section in chapter.value">
-                    <tr>
-                      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{section.section}}</td>
-                      <td ng-repeat="interview in filtered = (vm.interviews | interested: {position: vm.report.position, category: vm.report.category, startDate: dp.startDate, endDate: dp.endDate})">
-                        {{vm.getCompletedQuestions(interview, {module: module, unit: unit, chapter: chapter, section: section})}}
-                      </td>
-                    </tr>
-                  </tr >
-                  <tr ng-repeat-end></tr>
-                </tr>
+                </tr >
                 <tr ng-repeat-end></tr>
               </tr>
               <tr ng-repeat-end></tr>
             </tr>
             <tr ng-repeat-end></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-
-    <div>
-      <pre>Selected date is: <em>{{dp.valuationDate | date:'fullDate' }}</em>
-      </pre>
-      <div class="row">
-        <div class="col-md-3">
-          <p class="input-group">
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-default"
-              ng-click="dp.valuationDatePickerOpen()">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-          <input type="text" class="form-control"
-          datepicker-popup="mediumDate"
-          is-open="dp.valuationDatePickerIsOpen"
-          ng-click="dp.valuationDatePickerOpen()"
-          ng-model="dp.valuationDate" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default"
-            ng-click="dp.valuationDatePickerOpen($event)">
-            <i class="glyphicon glyphicon-calendar"></i>
-          </button>
-        </span>
-      </p>
+          </tr>
+          <tr ng-repeat-end></tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <ul>
-    <li ng-repeat="open in dp.opens">{{open}}</li>
-  </ul>
-</div>
+</section>

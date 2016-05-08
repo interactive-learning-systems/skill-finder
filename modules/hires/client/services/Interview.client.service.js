@@ -19,7 +19,7 @@
           questions: QuestionManager.questionsFromTemplates(questionTemplates)
         });
         if (interviewData) {
-          this.setData(interviewData);
+          a.setData(interviewData);
         }
       });
     }
