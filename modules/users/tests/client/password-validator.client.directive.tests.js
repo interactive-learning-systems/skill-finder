@@ -87,14 +87,14 @@
       expect(scope.requirementsProgress).toEqual('100');
     });
 
-    it('should not allow a less than 10 characters long - "P@$$w0rd!"', function() {
+    it('should not allow a less than 8 characters long - "P@$$w0rd!"', function() {
       scope.passwordMock.password = 'P@$$w0rd!';
       compileDirective();
       scope.$digest();
 
       expect(scope.form.password.$valid).toBeFalsy();
       expect(scope.form.password.$error.required).toBeFalsy();
-      expect(scope.passwordErrors).toEqual(['The password must be at least 10 characters long.']);
+      expect(scope.passwordErrors).toEqual(['The password must be at least 8 characters long.']);
       expect(scope.requirementsColor).toEqual('primary');
       expect(scope.requirementsProgress).toEqual('80');
     });

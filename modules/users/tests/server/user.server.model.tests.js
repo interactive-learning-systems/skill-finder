@@ -265,12 +265,12 @@ describe('User Model Unit Tests:', function () {
       });
     });
 
-    it('should not allow a password less than 10 characters long - "P@$$w0rd!"', function (done) {
+    it('should not allow a password less than 8 characters long - "P@$$w0rd!"', function (done) {
       var _user1 = new User(user1);
       _user1.password = 'P@$$w0rd!';
 
       _user1.validate(function (err) {
-        err.errors.password.message.should.equal('The password must be at least 10 characters long.');
+        err.errors.password.message.should.equal('The password must be at least 8 characters long.');
         done();
       });
     });

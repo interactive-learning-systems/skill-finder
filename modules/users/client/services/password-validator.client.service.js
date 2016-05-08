@@ -9,7 +9,10 @@
   PasswordValidator.$inject = ['$window'];
 
   function PasswordValidator($window) {
-    var owaspPasswordStrengthTest = $window.owaspPasswordStrengthTest;
+    var owasp = $window.owaspPasswordStrengthTest;
+    owasp.config({
+      minLength: 8
+    });
 
     var service = {
       getResult: getResult,
@@ -19,12 +22,12 @@
     return service;
 
     function getResult(password) {
-      var result = owaspPasswordStrengthTest.test(password);
+      var result = owasp.test(password);
       return result;
     }
 
     function getPopoverMsg() {
-      var popoverMsg = 'Please enter a passphrase or password with 10 or more characters, numbers, lowercase, uppercase, and special characters.';
+      var popoverMsg = 'Please enter a passphrase or password with 8 or more characters, numbers, lowercase, uppercase, and special characters.';
 
       return popoverMsg;
     }

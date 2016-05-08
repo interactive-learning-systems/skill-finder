@@ -144,7 +144,7 @@ describe('Users E2E Tests:', function () {
       // Click Submit button
       element(by.css('button[type=submit]')).click();
       // Password Error
-      expect(element.all(by.css('.error-text')).get(0).getText()).toBe('The password must be at least 10 characters long.');
+      expect(element.all(by.css('.error-text')).get(0).getText()).toBe('The password must be at least 8 characters long.');
     });
 
     it('Should report a password with greater than 128 characters long.', function () {
@@ -348,7 +348,7 @@ describe('Users E2E Tests:', function () {
       // Click Submit button
       element(by.css('button[type=submit]')).click();
       // Password Error
-      expect(element.all(by.css('.error-text')).get(0).getText()).toBe('The password must be at least 10 characters long.');
+      expect(element.all(by.css('.error-text')).get(0).getText()).toBe('The password must be at least 8 characters long.');
     });
 
     it('Should report a password with greater than 128 characters long.', function () {
