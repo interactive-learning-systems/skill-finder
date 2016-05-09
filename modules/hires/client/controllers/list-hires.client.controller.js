@@ -26,7 +26,7 @@
 
   function completed(question) {
     if (question.rating.ratingType === 'trueFalse') {
-      return !!question.rating.trueFalse;
+      return true;  // TMW
     } else {
       return question.rating.value > 0;
     }

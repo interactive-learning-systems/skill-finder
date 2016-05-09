@@ -143,7 +143,7 @@
 
     function completed(question) {
       if (question.rating.ratingType === 'trueFalse') {
-        return !!question.rating.trueFalse;
+        return true;
       } else {
         return question.rating.value > 0;
       }

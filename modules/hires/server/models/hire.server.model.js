@@ -57,7 +57,7 @@ var QuestionSchema = new Schema({
     },
     trueFalse: {
       type: Boolean,
-      default: null
+      default: false
     },
     value: {
       type: Number,

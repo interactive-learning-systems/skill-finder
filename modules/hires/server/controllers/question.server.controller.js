@@ -32,6 +32,7 @@ exports.create = function (req, res) {
     default:
       question.rating.max = 1;
   }
+  console.log(question);
 
   question.save(function (err) {
     if (err) {
@@ -62,6 +63,7 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   console.log("UPDATE");
   var i = req.body;
+  console.log(i);
 
   Question.findByIdAndUpdate(i._id, { $set: i }, { new: true }, function (err, question) {
     if (err) {

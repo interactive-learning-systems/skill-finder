@@ -46,7 +46,7 @@
                     <td>{{question.question}}</td>
                     <td>
                       <span>
-                        <input ng-show="question.rating.ratingType==='trueFalse'" type="checkbox" ng-model="question.rating.trueFalse" ng-checked="question.rating.trueFalse" disabled="true" ng-indeterminate="true">
+                        <input ng-show="question.rating.ratingType==='trueFalse'" type="checkbox" ng-model="question.rating.trueFalse" ng-checked="question.rating.trueFalse" disabled="true">
                         <uib-rating ng-show="question.rating.ratingType==='rating4'" ng-model="question.rating.value" max="4" data-readonly="true" aria-labelledby="default-rating">ddd</uib-rating>
                         <uib-rating ng-show="question.rating.ratingType==='rating5'" ng-model="question.rating.value" max="5" data-readonly="true" aria-labelledby="default-rating"></uib-rating>
                         <input ng-show="question.rating.ratingType==='xofy'" type="text" size="2" ng-model="question.rating.value" readonly="true" ><span ng-show="question.rating.ratingType==='xofy'"> of </span><input ng-show="question.rating.ratingType==='xofy'" type="text" size="2" ng-model="question.rating.max" readonly="true" >
