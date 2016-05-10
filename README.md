@@ -209,6 +209,8 @@ gulp test:e2e
 ## Updating the code on the production server* git clone
 ```bash
  https://github.com/interactive-learning-systems/skill-finder.git
+
+git clone https://github.com/interactive-learning-systems/skill-finder.git
  ```
 
 
